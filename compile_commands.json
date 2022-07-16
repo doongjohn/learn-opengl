@@ -1,0 +1,46 @@
+[
+{
+  "directory": "/home/doongjohn/projects/opengl",
+  "arguments": ["/usr/bin/x86_64-w64-mingw32-gcc", "-c", "-m64", "-fvisibility=hidden", "-O3", "-std=c17", "-Isrc/vendor", "-DNDEBUG", "-o", "build/.objs/stb/mingw/x86_64/release/src/vendor/stb/stb_image.c.obj", "src/vendor/stb/stb_image.c"],
+  "file": "src/vendor/stb/stb_image.c"
+},
+{
+  "directory": "/home/doongjohn/projects/opengl",
+  "arguments": ["/usr/bin/x86_64-w64-mingw32-g++", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++20", "-Iglad/include", "-Isrc/vendor", "-Isrc/vendor/glm", "-DGLFW_INCLUDE_NONE", "-I", "/home/doongjohn/.xmake/packages/g/glfw/3.3.6/77191798784e4a0d8021b7f0a40c0fdb/include", "-DNDEBUG", "-o", "build/.objs/opengl/mingw/x86_64/release/src/renderer/vertex_array.cpp.obj", "src/renderer/vertex_array.cpp"],
+  "file": "src/renderer/vertex_array.cpp"
+},
+{
+  "directory": "/home/doongjohn/projects/opengl",
+  "arguments": ["/usr/bin/x86_64-w64-mingw32-g++", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++20", "-Iglad/include", "-Isrc/vendor", "-Isrc/vendor/glm", "-DGLFW_INCLUDE_NONE", "-I", "/home/doongjohn/.xmake/packages/g/glfw/3.3.6/77191798784e4a0d8021b7f0a40c0fdb/include", "-DNDEBUG", "-o", "build/.objs/opengl/mingw/x86_64/release/src/renderer/shader.cpp.obj", "src/renderer/shader.cpp"],
+  "file": "src/renderer/shader.cpp"
+},
+{
+  "directory": "/home/doongjohn/projects/opengl",
+  "arguments": ["/usr/bin/x86_64-w64-mingw32-g++", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++20", "-Iglad/include", "-Isrc/vendor", "-Isrc/vendor/glm", "-DGLFW_INCLUDE_NONE", "-I", "/home/doongjohn/.xmake/packages/g/glfw/3.3.6/77191798784e4a0d8021b7f0a40c0fdb/include", "-DNDEBUG", "-o", "build/.objs/opengl/mingw/x86_64/release/src/renderer/vertex_buffer.cpp.obj", "src/renderer/vertex_buffer.cpp"],
+  "file": "src/renderer/vertex_buffer.cpp"
+},
+{
+  "directory": "/home/doongjohn/projects/opengl",
+  "arguments": ["/usr/bin/x86_64-w64-mingw32-g++", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++20", "-Iglad/include", "-Isrc/vendor", "-Isrc/vendor/glm", "-DGLFW_INCLUDE_NONE", "-I", "/home/doongjohn/.xmake/packages/g/glfw/3.3.6/77191798784e4a0d8021b7f0a40c0fdb/include", "-DNDEBUG", "-o", "build/.objs/opengl/mingw/x86_64/release/src/renderer/index_buffer.cpp.obj", "src/renderer/index_buffer.cpp"],
+  "file": "src/renderer/index_buffer.cpp"
+},
+{
+  "directory": "/home/doongjohn/projects/opengl",
+  "arguments": ["/usr/bin/x86_64-w64-mingw32-g++", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++20", "-Iglad/include", "-Isrc/vendor", "-Isrc/vendor/glm", "-DGLFW_INCLUDE_NONE", "-I", "/home/doongjohn/.xmake/packages/g/glfw/3.3.6/77191798784e4a0d8021b7f0a40c0fdb/include", "-DNDEBUG", "-o", "build/.objs/opengl/mingw/x86_64/release/src/renderer/texture.cpp.obj", "src/renderer/texture.cpp"],
+  "file": "src/renderer/texture.cpp"
+},
+{
+  "directory": "/home/doongjohn/projects/opengl",
+  "arguments": ["/usr/bin/x86_64-w64-mingw32-g++", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++20", "-Iglad/include", "-Isrc/vendor", "-Isrc/vendor/glm", "-DGLFW_INCLUDE_NONE", "-I", "/home/doongjohn/.xmake/packages/g/glfw/3.3.6/77191798784e4a0d8021b7f0a40c0fdb/include", "-DNDEBUG", "-o", "build/.objs/opengl/mingw/x86_64/release/src/renderer/renderer.cpp.obj", "src/renderer/renderer.cpp"],
+  "file": "src/renderer/renderer.cpp"
+},
+{
+  "directory": "/home/doongjohn/projects/opengl",
+  "arguments": ["/usr/bin/x86_64-w64-mingw32-g++", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++20", "-Iglad/include", "-Isrc/vendor", "-Isrc/vendor/glm", "-DGLFW_INCLUDE_NONE", "-I", "/home/doongjohn/.xmake/packages/g/glfw/3.3.6/77191798784e4a0d8021b7f0a40c0fdb/include", "-DNDEBUG", "-o", "build/.objs/opengl/mingw/x86_64/release/src/main.cpp.obj", "src/main.cpp"],
+  "file": "src/main.cpp"
+},
+{
+  "directory": "/home/doongjohn/projects/opengl",
+  "arguments": ["/usr/bin/x86_64-w64-mingw32-gcc", "-c", "-m64", "-fvisibility=hidden", "-O3", "-std=c17", "-Iglad/include", "-DNDEBUG", "-o", "build/.objs/glad/mingw/x86_64/release/glad/src/glad.c.obj", "glad/src/glad.c"],
+  "file": "glad/src/glad.c"
+}]
