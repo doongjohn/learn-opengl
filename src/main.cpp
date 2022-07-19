@@ -20,7 +20,6 @@
 #include "renderer/texture.hpp"
 #include "renderer/renderer.hpp"
 
-
 using std::string;
 using std::array;
 
@@ -154,31 +153,21 @@ int main(int argc, char **argv) {
 
     // set mvp matrix
     static float rotation = 0.0f;
+    static auto translation = glm::vec3(0.0f, 0.0f, 0.0f);
     glm::mat4 proj = glm::ortho(-(float)window_w / 2.0f, (float)window_w / 2.0f, -(float)window_h / 2.0f, (float)window_h / 2.0f);
     glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
-    glm::mat4 model = glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
-    glm::mat4 mvp = proj * view * model;
+    glm::mat4 model_t = glm::translate(glm::mat4(1.0f), translation);
+    glm::mat4 model_r = glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
+    glm::mat4 mvp = proj * view * (model_t * model_r);
     shader.SetUniformMat4f("u_Mvp", mvp);
     rotation += 0.2f;
 
     renderer.Draw(shader, vao, ebo);
 
     {
-      static float f = 0.0f;
-      static int counter = 0;
-
       ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-
-      ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-
-      ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
       ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-
-      if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-        counter++;
-      ImGui::SameLine();
-      ImGui::Text("counter = %d", counter);
-
+      ImGui::SliderFloat3("Translation vector", &translation[0], -100.0f, 100.0f);
       ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
       ImGui::End();
     }
