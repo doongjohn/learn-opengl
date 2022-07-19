@@ -8,6 +8,10 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
+#include "imgui/imgui.h"
+#include "imgui/backends/imgui_impl_glfw.h"
+#include "imgui/backends/imgui_impl_opengl3.h"
+
 #include "renderer/debugmessage.hpp"
 #include "renderer/vertex_array.hpp"
 #include "renderer/vertex_buffer.hpp"
@@ -15,6 +19,7 @@
 #include "renderer/shader.hpp"
 #include "renderer/texture.hpp"
 #include "renderer/renderer.hpp"
+
 
 using std::string;
 using std::array;
@@ -76,6 +81,21 @@ int main(int argc, char **argv) {
   //          │             └> the color that is already in the buffer
   //          the color to draw
 
+  // imgui
+  IMGUI_CHECKVERSION();
+  ImGui::CreateContext();
+  ImGuiIO& io = ImGui::GetIO(); (void)io;
+  //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+  //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+
+  // Setup Dear ImGui style
+  ImGui::StyleColorsDark();
+
+  // Setup Platform/Renderer backends
+  ImGui_ImplGlfw_InitForOpenGL(window, true);
+  ImGui_ImplOpenGL3_Init("#version 460 core");
+  auto clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
   // image source: https://www.freeillustrated.com/illustrations/2018/08/10
   float image_scale = 0.3f;
   float image_w = 1639 * image_scale;
@@ -121,29 +141,60 @@ int main(int argc, char **argv) {
   // create renderer
   Renderer renderer;
 
-  float rotation = 0.0f;
-
   // render loop
   while (!glfwWindowShouldClose(window)) {
-    renderer.Clear();
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
 
+    glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
+    renderer.Clear();
     vao.Bind();
     shader.Bind();
 
     // set mvp matrix
-    rotation += 0.2f;
+    static float rotation = 0.0f;
     glm::mat4 proj = glm::ortho(-(float)window_w / 2.0f, (float)window_w / 2.0f, -(float)window_h / 2.0f, (float)window_h / 2.0f);
     glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
     glm::mat4 model = glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
     glm::mat4 mvp = proj * view * model;
     shader.SetUniformMat4f("u_Mvp", mvp);
+    rotation += 0.2f;
 
     renderer.Draw(shader, vao, ebo);
+
+    {
+      static float f = 0.0f;
+      static int counter = 0;
+
+      ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
+
+      ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
+
+      ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+      ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
+
+      if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
+        counter++;
+      ImGui::SameLine();
+      ImGui::Text("counter = %d", counter);
+
+      ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+      ImGui::End();
+    }
+
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
     glfwSwapBuffers(window);
     glfwPollEvents();
   }
 
+  ImGui_ImplOpenGL3_Shutdown();
+  ImGui_ImplGlfw_Shutdown();
+  ImGui::DestroyContext();
+
+  glfwDestroyWindow(window);
   glfwTerminate();
   return 0;
 }

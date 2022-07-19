@@ -15,8 +15,19 @@ target_end()
 target("stb")
   set_kind("static")
   set_languages("c17")
-  add_includedirs("src/vendor")
-  add_files("src/vendor/**.c")
+  add_files("src/vendor/stb/**.c")
+target_end()
+
+target("imgui")
+  set_kind("static")
+  add_packages("glfw")
+  set_languages("cxx11")
+  add_includedirs("src/vendor/imgui")
+  add_files(
+    "src/vendor/imgui/*.cpp",
+    "src/vendor/imgui/backends/imgui_impl_glfw.cpp",
+    "src/vendor/imgui/backends/imgui_impl_opengl3.cpp"
+  )
 target_end()
 
 target("opengl")
@@ -24,19 +35,24 @@ target("opengl")
 
   add_deps(
     "glad",
-    "stb"
+    "stb",
+    "imgui"
   )
   add_packages(
     "glfw"
   )
 
-  set_languages("c++20")
+  set_languages("cxx20")
   add_includedirs(
     "glad/include",
     "src/vendor",
+    "src/vendor/imgui",
     "src/vendor/glm"
   )
-  add_files("src/**.cpp|vendor/glm/**.cpp")
+  add_files(
+    "src/main.cpp",
+    "src/renderer/*.cpp"
+  )
   add_ldflags("-static")
 
   -- custom run function
