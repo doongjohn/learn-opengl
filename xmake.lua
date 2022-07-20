@@ -52,7 +52,6 @@ target("opengl")
   )
   add_files(
     "src/renderer/*.cpp",
-    "src/scenes/*.cpp",
     "src/main.cpp"
   )
   add_ldflags("-static")

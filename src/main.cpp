@@ -20,7 +20,7 @@
 #include "renderer/texture.hpp"
 #include "renderer/renderer.hpp"
 
-#include "scenes/scene_manager.hpp"
+#include "scene_manager.hpp"
 
 using std::string;
 using std::array;

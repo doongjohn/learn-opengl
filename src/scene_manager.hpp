@@ -3,7 +3,7 @@
 #include <array>
 #include <string>
 
-#include "scenes/scene.hpp"
+#include "scene.hpp"
 #include "scenes/clear_color.hpp"
 #include "scenes/quad.hpp"
 #include "scenes/quad_with_texture.hpp"
