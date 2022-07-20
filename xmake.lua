@@ -44,14 +44,16 @@ target("opengl")
 
   set_languages("cxx20")
   add_includedirs(
+    "src",
     "glad/include",
     "src/vendor",
-    "src/vendor/imgui",
-    "src/vendor/glm"
+    "src/vendor/glm",
+    "src/vendor/imgui"
   )
   add_files(
-    "src/main.cpp",
-    "src/renderer/*.cpp"
+    "src/renderer/*.cpp",
+    "src/scenes/*.cpp",
+    "src/main.cpp"
   )
   add_ldflags("-static")
 

@@ -10,9 +10,11 @@ private:
   uint32_t count;
 
 public:
+  IndexBuffer() {}
   IndexBuffer(const std::span<uint32_t> data);
   ~IndexBuffer();
 
+  void Init(const std::span<uint32_t> data);
   void Bind() const;
   void Unbind() const;
 

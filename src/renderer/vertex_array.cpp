@@ -1,9 +1,11 @@
 #include "vertex_array.hpp"
 
-VertexArray::VertexArray()
-{
+void VertexArray::Init() {
   glGenVertexArrays(1, &this->gl_id);
   glBindVertexArray(this->gl_id);
+}
+VertexArray::VertexArray() {
+  this->Init();
 }
 VertexArray::~VertexArray() {
   glDeleteVertexArrays(1, &this->gl_id);
@@ -35,7 +37,7 @@ void VertexArray::AttachIndexBuffer(IndexBuffer& ebo) {
 // stride = size of single vertex
 void VertexArray::AttachVertexBuffer(VertexBuffer& vbo, std::initializer_list<VertexArrayElement> attribs) {
   vbo.Bind();
-  VertexArrayLayout layout{};
+  VertexArrayLayout layout;
 
   // caculate stride
   uint32_t stride = 0;
@@ -48,10 +50,8 @@ void VertexArray::AttachVertexBuffer(VertexBuffer& vbo, std::initializer_list<Ve
   for (auto a : attribs) {
     glVertexAttribPointer(layout_index, a.count, a.type, (uint32_t)a.normalized, stride, (void*)offset);
     glEnableVertexAttribArray(layout_index);
-
     ++layout_index;
     offset += a.count * sizeof_gl_type(a.type);
-
     layout.elements.push_back(a);
   }
 

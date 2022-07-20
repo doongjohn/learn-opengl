@@ -20,6 +20,8 @@
 #include "renderer/texture.hpp"
 #include "renderer/renderer.hpp"
 
+#include "scenes/scene_manager.hpp"
+
 using std::string;
 using std::array;
 
@@ -93,84 +95,39 @@ int main(int argc, char **argv) {
   // Setup Platform/Renderer backends
   ImGui_ImplGlfw_InitForOpenGL(window, true);
   ImGui_ImplOpenGL3_Init("#version 460 core");
-  auto clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-
-  // image source: https://www.freeillustrated.com/illustrations/2018/08/10
-  float image_scale = 0.3f;
-  float image_w = 1639 * image_scale;
-  float image_h = 2048 * image_scale;
-  // vertex buffer
-  auto positions = array {
-    /* pos: */ -image_w / 2, -image_h / 2, /* texture coord: */ 0.0f, 0.0f,
-    /* pos: */  image_w / 2, -image_h / 2, /* texture coord: */ 1.0f, 0.0f,
-    /* pos: */  image_w / 2,  image_h / 2, /* texture coord: */ 1.0f, 1.0f,
-    /* pos: */ -image_w / 2,  image_h / 2, /* texture coord: */ 0.0f, 1.0f
-  };
-  VertexBuffer vbo(positions.data(), sizeof(positions));
-
-  // index buffer
-  // (the order must be anti-clockwise)
-  uint32_t indices[6] = {
-    0, 1, 2,
-    0, 2, 3,
-  };
-  IndexBuffer ebo(indices);
-
-  VertexArray vao;
-  vao.AttachVertexBuffer(vbo, {
-    { .type = GL_FLOAT, .count = 2 }, // pos
-    { .type = GL_FLOAT, .count = 2 }, // tex coord
-  });
-  vao.Unbind();
-
-  vbo.Unbind();
-  ebo.Unbind();
-
-  // create shader
-  ShaderProgram shader("./res/shaders/basic.glsl");
-  shader.Bind();
-
-  // create texture
-  Texture texture("./res/textures/spoonful.jpg");
-  texture.Bind(); // default slot 0
-
-  shader.SetUniform1i("u_Texture", 0); // slot 0
-  shader.Unbind(); // removes preformance warning
 
   // create renderer
   Renderer renderer;
 
+  // create scene
+  Scene* scene = SceneManager::create(window_w, window_h, renderer, io, SceneManager::Scenes::QuadWithTexture);
+
   // render loop
   while (!glfwWindowShouldClose(window)) {
+    renderer.Clear();
+    scene->OnRender();
+
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
-    renderer.Clear();
-    vao.Bind();
-    shader.Bind();
+    scene->OnImGuiRender();
 
-    // set mvp matrix
-    static float rotation = 0.0f;
-    static auto translation = glm::vec3(0.0f, 0.0f, 0.0f);
-    glm::mat4 proj = glm::ortho(-(float)window_w / 2.0f, (float)window_w / 2.0f, -(float)window_h / 2.0f, (float)window_h / 2.0f);
-    glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
-    glm::mat4 model_t = glm::translate(glm::mat4(1.0f), translation);
-    glm::mat4 model_r = glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
-    glm::mat4 mvp = proj * view * (model_t * model_r);
-    shader.SetUniformMat4f("u_Mvp", mvp);
-    rotation += 0.2f;
-
-    renderer.Draw(shader, vao, ebo);
-
-    {
-      ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-      ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-      ImGui::SliderFloat3("Translation vector", &translation[0], -100.0f, 100.0f);
-      ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-      ImGui::End();
+    // TODO: make it better
+    ImGui::Begin("Scenes");
+    if (ImGui::Button("clear color")) {
+      delete scene;
+      scene = SceneManager::create(window_w, window_h, renderer, io, SceneManager::Scenes::ClearColor);
     }
+    if (ImGui::Button("quad")) {
+      delete scene;
+      scene = SceneManager::create(window_w, window_h, renderer, io, SceneManager::Scenes::Quad);
+    }
+    if (ImGui::Button("quad with texture")) {
+      delete scene;
+      scene = SceneManager::create(window_w, window_h, renderer, io, SceneManager::Scenes::QuadWithTexture);
+    }
+    ImGui::End();
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -178,6 +135,8 @@ int main(int argc, char **argv) {
     glfwSwapBuffers(window);
     glfwPollEvents();
   }
+
+  delete scene;
 
   ImGui_ImplOpenGL3_Shutdown();
   ImGui_ImplGlfw_Shutdown();

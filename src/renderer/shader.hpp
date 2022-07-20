@@ -19,14 +19,17 @@ private:
   std::unordered_map<std::string, int32_t> uniform_cache;
 
 public:
+  ShaderProgram() {}
   ShaderProgram(const std::string& file_path);
   ~ShaderProgram();
 
+  void Init(const std::string& file_path);
   void Bind() const;
   void Unbind() const;
 
   void SetUniform1i(const std::string& name, const int32_t value);
   void SetUniform1f(const std::string& name, const float value);
+  void SetUniform4f(const std::string& name, const glm::vec4& value);
   void SetUniform4f(const std::string& name, const std::array<float, 4>& value);
   void SetUniformMat4f(const std::string& name, const glm::mat4& mat4);
 

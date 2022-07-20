@@ -4,6 +4,12 @@ using std::string;
 using std::tuple;
 
 // file path of vertex and fragment shader combined
+void ShaderProgram::Init(const std::string& file_path) {
+  this->gl_id = 0;
+  this->file_path = file_path;
+  auto [vertex_src, fragment_src] = ShaderProgram::ParseShader(file_path);
+  this->gl_id = ShaderProgram::CreateShader(vertex_src, fragment_src);
+}
 ShaderProgram::ShaderProgram(const std::string& file_path)
   : gl_id(0), file_path(file_path)
 {
@@ -26,6 +32,9 @@ void ShaderProgram::SetUniform1i(const std::string& name, const int32_t value) {
 }
 void ShaderProgram::SetUniform1f(const std::string& name, const float value) {
   glUniform1i(this->GetUniformLocation(name), value);
+}
+void ShaderProgram::SetUniform4f(const std::string& name, const glm::vec4& value) {
+  glUniform4f(this->GetUniformLocation(name), value[0], value[1], value[2], value[3]);
 }
 void ShaderProgram::SetUniform4f(const std::string& name, const std::array<float, 4>& value) {
   glUniform4f(this->GetUniformLocation(name), value[0], value[1], value[2], value[3]);

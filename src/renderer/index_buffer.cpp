@@ -1,5 +1,12 @@
 #include "index_buffer.hpp"
 
+void IndexBuffer::Init(const std::span<uint32_t> data) {
+  this->count = data.size();
+  glGenBuffers(1, &this->gl_id);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->gl_id);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), &data.front(), GL_STATIC_DRAW);
+  this->Unbind();
+}
 IndexBuffer::IndexBuffer(const std::span<uint32_t> data)
   : count(data.size())
 {

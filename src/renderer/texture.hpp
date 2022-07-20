@@ -15,9 +15,11 @@ private:
   int bits_per_pixel;
 
 public:
+  Texture() {}
   Texture(const std::string& path);
   ~Texture();
 
+  void Init(const std::string& path);
   void Bind(uint64_t slot = 0) const;
   void Unbind() const;
 
