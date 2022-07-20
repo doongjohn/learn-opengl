@@ -89,10 +89,7 @@ int main(int argc, char **argv) {
   //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
   //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
-  // Setup Dear ImGui style
   ImGui::StyleColorsDark();
-
-  // Setup Platform/Renderer backends
   ImGui_ImplGlfw_InitForOpenGL(window, true);
   ImGui_ImplOpenGL3_Init("#version 460 core");
 
@@ -100,7 +97,7 @@ int main(int argc, char **argv) {
   Renderer renderer;
 
   // create scene
-  Scene* scene = SceneManager::create(window_w, window_h, renderer, io, SceneManager::Scenes::QuadWithTexture);
+  Scene* scene = SceneManager::create(window_w, window_h, renderer, io, 0);
 
   // render loop
   while (!glfwWindowShouldClose(window)) {
@@ -113,21 +110,12 @@ int main(int argc, char **argv) {
 
     scene->OnImGuiRender();
 
-    // TODO: make it better
-    ImGui::Begin("Scenes");
-    if (ImGui::Button("clear color")) {
+    auto nextScene = SceneManager::selection_menu(scene, window_w, window_h, renderer, io);
+    if (nextScene) {
       delete scene;
-      scene = SceneManager::create(window_w, window_h, renderer, io, SceneManager::Scenes::ClearColor);
+      scene = nextScene;
+      renderer.SetClearColor(SceneManager::default_clear_color);
     }
-    if (ImGui::Button("quad")) {
-      delete scene;
-      scene = SceneManager::create(window_w, window_h, renderer, io, SceneManager::Scenes::Quad);
-    }
-    if (ImGui::Button("quad with texture")) {
-      delete scene;
-      scene = SceneManager::create(window_w, window_h, renderer, io, SceneManager::Scenes::QuadWithTexture);
-    }
-    ImGui::End();
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

@@ -51,7 +51,13 @@ SceneQuadWithTexture::SceneQuadWithTexture(int& window_w, int& window_h, Rendere
   quad_pos = glm::vec3(0.0f, 0.0f, 0.0f);
   quad_color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 }
-SceneQuadWithTexture::~SceneQuadWithTexture() { }
+SceneQuadWithTexture::~SceneQuadWithTexture() {
+  vao.Unbind();
+  vbo.Unbind();
+  ebo.Unbind();
+  shader.Unbind();
+  texture.Unbind();
+}
 
 void SceneQuadWithTexture::OnUpdate(const float deltaTime) { }
 

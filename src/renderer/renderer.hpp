@@ -10,5 +10,6 @@ private:
 
 public:
   void Clear() const;
+  void SetClearColor(glm::vec3 color) const;
   void Draw(const ShaderProgram& shader, const VertexArray& vao, const IndexBuffer& ebo) const;
 };
