@@ -69,6 +69,6 @@ void Texture::Bind(uint64_t slot /* = 0 */) const {
   glActiveTexture(GL_TEXTURE0 + slot);
   glBindTexture(GL_TEXTURE_2D, this->gl_id);
 }
-void Texture::Unbind() const {
+void Texture::Unbind() {
   glBindTexture(GL_TEXTURE_2D, 0);
 }

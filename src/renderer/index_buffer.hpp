@@ -16,7 +16,7 @@ public:
 
   void Init(const std::span<uint32_t> data);
   void Bind() const;
-  void Unbind() const;
+  static void Unbind();
 
   inline
   uint32_t GetCount() const {

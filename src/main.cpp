@@ -112,6 +112,11 @@ int main(int argc, char **argv) {
 
     auto nextScene = SceneManager::selection_menu(scene, window_w, window_h, renderer, io);
     if (nextScene) {
+      VertexArray::Unbind();
+      VertexBuffer::Unbind();
+      IndexBuffer::Unbind();
+      ShaderProgram::Unbind();
+      Texture::Unbind();
       delete scene;
       scene = nextScene;
       renderer.SetClearColor(SceneManager::default_clear_color);

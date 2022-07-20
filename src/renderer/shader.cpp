@@ -23,7 +23,7 @@ ShaderProgram::~ShaderProgram() {
 void ShaderProgram::Bind() const {
   glUseProgram(this->gl_id);
 }
-void ShaderProgram::Unbind() const {
+void ShaderProgram::Unbind() {
   glUseProgram(0);
 }
 

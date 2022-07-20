@@ -16,5 +16,5 @@ public:
 
   void Init(const void *data, const uint32_t size);
   void Bind() const;
-  void Unbind() const;
+  static void Unbind();
 };

@@ -25,7 +25,7 @@ public:
 
   void Init(const std::string& file_path);
   void Bind() const;
-  void Unbind() const;
+  static void Unbind();
 
   void SetUniform1i(const std::string& name, const int32_t value);
   void SetUniform1f(const std::string& name, const float value);

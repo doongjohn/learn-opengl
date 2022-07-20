@@ -56,12 +56,7 @@ SceneQuad::SceneQuad(int& window_w, int& window_h, Renderer& renderer, ImGuiIO& 
   quad_pos = glm::vec3(0.0f, 0.0f, 0.0f);
   quad_color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 }
-SceneQuad::~SceneQuad() {
-  vao.Unbind();
-  vbo.Unbind();
-  ebo.Unbind();
-  shader.Unbind();
-}
+SceneQuad::~SceneQuad() { }
 
 void SceneQuad::OnUpdate(const float deltaTime) { }
 

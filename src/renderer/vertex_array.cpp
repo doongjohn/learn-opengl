@@ -14,7 +14,7 @@ VertexArray::~VertexArray() {
 void VertexArray::Bind() const {
   glBindVertexArray(this->gl_id);
 }
-void VertexArray::Unbind() const {
+void VertexArray::Unbind() {
   glBindVertexArray(0);
 }
 

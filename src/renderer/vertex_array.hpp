@@ -29,7 +29,7 @@ public:
 
   void Init();
   void Bind() const;
-  void Unbind() const;
+  static void Unbind();
 
   void AttachIndexBuffer(IndexBuffer& ebo);
   void AttachVertexBuffer(VertexBuffer& vbo, std::initializer_list<VertexArrayElement> attribs);

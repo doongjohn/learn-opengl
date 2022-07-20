@@ -21,7 +21,7 @@ public:
 
   void Init(const std::string& path);
   void Bind(uint64_t slot = 0) const;
-  void Unbind() const;
+  static void Unbind();
 
   inline int GetWidth() const { return this->width; }
   inline int GetHeight() const { return this->height; }
