@@ -29,6 +29,12 @@ void ShaderProgram::SetUniform1i(const std::string& name, const int32_t value) {
 void ShaderProgram::SetUniform1f(const std::string& name, const float value) {
   glUniform1i(this->GetUniformLocation(name), value);
 }
+void ShaderProgram::SetUniform3f(const std::string& name, const glm::vec3& value) {
+  glUniform3f(this->GetUniformLocation(name), value[0], value[1], value[2]);
+}
+void ShaderProgram::SetUniform3f(const std::string& name, const std::array<float, 3>& value) {
+  glUniform3f(this->GetUniformLocation(name), value[0], value[1], value[2]);
+}
 void ShaderProgram::SetUniform4f(const std::string& name, const glm::vec4& value) {
   glUniform4f(this->GetUniformLocation(name), value[0], value[1], value[2], value[3]);
 }
@@ -40,11 +46,7 @@ void ShaderProgram::SetUniformMat4f(const std::string& name, const glm::mat4& ma
 }
 
 tuple<string, string> ShaderProgram::ParseShader(const string& file_path) {
-  enum class ShaderType {
-    None = -1,
-    Vertex = 0,
-    Fragment = 1,
-  };
+  enum class ShaderType { None = -1, Vertex = 0, Fragment = 1 };
 
   std::ifstream stream(file_path);
   std::stringstream ss[2];
