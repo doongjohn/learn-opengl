@@ -95,7 +95,7 @@ int main(int argc, char **argv) {
   Renderer renderer;
 
   // create scene
-  Scene* scene = SceneManager::create(window_w, window_h, renderer, io, 0);
+  Scene* scene = SceneManager::create_scene(window_w, window_h, renderer, io, 0);
 
   // render loop
   while (!glfwWindowShouldClose(window)) {

@@ -20,7 +20,7 @@ static auto scene_list = array {
   "quad with texture",
 };
 
-Scene* create(int& window_w, int& window_h, Renderer& renderer, ImGuiIO& io, int scene_index) {
+Scene* create_scene(int& window_w, int& window_h, Renderer& renderer, ImGuiIO& io, int scene_index) {
   switch (scene_index) {
     case 0:
       return new SceneClearColor
@@ -44,7 +44,7 @@ Scene* selection_menu(Scene*& scene, int& window_w, int& window_h, Renderer& ren
   int i = 0;
   for (auto& scene : scene_list) {
     if (ImGui::Button(scene)) {
-      return SceneManager::create(window_w, window_h, renderer, io, i);
+      return SceneManager::create_scene(window_w, window_h, renderer, io, i);
     }
     ++i;
   }
