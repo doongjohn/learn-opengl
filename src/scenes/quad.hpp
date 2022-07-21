@@ -40,7 +40,6 @@ SceneQuad::SceneQuad(int& window_w, int& window_h, Renderer& renderer, ImGuiIO& 
   new(&vbo) VertexBuffer(positions.data(), sizeof(positions));
   new(&ebo) IndexBuffer(indices);
 
-  new(&vao) VertexArray();
   vao.AttachVertexBuffer(vbo, {
     { .type = GL_FLOAT, .count = 2 }, // x, y pos
   });

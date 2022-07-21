@@ -40,7 +40,6 @@ SceneVertexColor::SceneVertexColor(int& window_w, int& window_h, Renderer& rende
   new(&vbo) VertexBuffer(positions.data(), sizeof(positions));
   new(&ebo) IndexBuffer(indices);
 
-  new(&vao) VertexArray();
   vao.AttachVertexBuffer(vbo, {
     { .type = GL_FLOAT, .count = 2 }, // x, y pos
     { .type = GL_FLOAT, .count = 3 }, // color

@@ -46,7 +46,6 @@ SceneQuadWithTexture::SceneQuadWithTexture(int& window_w, int& window_h, Rendere
   new(&vbo) VertexBuffer(positions.data(), sizeof(positions));
   new(&ebo) IndexBuffer(indices);
 
-  new(&vao) VertexArray();
   vao.AttachVertexBuffer(vbo, {
     { .type = GL_FLOAT, .count = 2 }, // x, y pos
     { .type = GL_FLOAT, .count = 2 }, // tex coord
