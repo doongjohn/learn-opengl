@@ -37,10 +37,10 @@ SceneQuad::SceneQuad(int& window_w, int& window_h, Renderer& renderer, ImGuiIO& 
     0, 2, 3,
   };
 
-  vbo.Init(positions.data(), sizeof(positions));
-  ebo.Init(indices);
+  new(&vbo) VertexBuffer(positions.data(), sizeof(positions));
+  new(&ebo) IndexBuffer(indices);
 
-  vao.Init();
+  new(&vao) VertexArray();
   vao.AttachVertexBuffer(vbo, {
     { .type = GL_FLOAT, .count = 2 }, // x, y pos
   });
@@ -50,7 +50,7 @@ SceneQuad::SceneQuad(int& window_w, int& window_h, Renderer& renderer, ImGuiIO& 
   ebo.Unbind();
 
   // create shader
-  shader.Init("./res/shaders/basic.glsl");
+  new(&shader) ShaderProgram("./res/shaders/basic.glsl");
 
   // initialize model position
   quad_pos = glm::vec3(0.0f, 0.0f, 0.0f);

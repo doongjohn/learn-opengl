@@ -23,7 +23,6 @@ public:
   ShaderProgram(const std::string& file_path);
   ~ShaderProgram();
 
-  void Init(const std::string& file_path);
   void Bind() const;
   static void Unbind();
 

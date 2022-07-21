@@ -14,7 +14,6 @@ public:
   IndexBuffer(const std::span<uint32_t> data);
   ~IndexBuffer();
 
-  void Init(const std::span<uint32_t> data);
   void Bind() const;
   static void Unbind();
 

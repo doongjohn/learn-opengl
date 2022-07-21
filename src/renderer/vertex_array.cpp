@@ -1,11 +1,8 @@
 #include "vertex_array.hpp"
 
-void VertexArray::Init() {
+VertexArray::VertexArray() {
   glGenVertexArrays(1, &this->gl_id);
   glBindVertexArray(this->gl_id);
-}
-VertexArray::VertexArray() {
-  this->Init();
 }
 VertexArray::~VertexArray() {
   glDeleteVertexArrays(1, &this->gl_id);

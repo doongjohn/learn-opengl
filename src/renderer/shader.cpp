@@ -4,12 +4,6 @@ using std::string;
 using std::tuple;
 
 // file path of vertex and fragment shader combined
-void ShaderProgram::Init(const std::string& file_path) {
-  this->gl_id = 0;
-  this->file_path = file_path;
-  auto [vertex_src, fragment_src] = ShaderProgram::ParseShader(file_path);
-  this->gl_id = ShaderProgram::CreateShader(vertex_src, fragment_src);
-}
 ShaderProgram::ShaderProgram(const std::string& file_path)
   : gl_id(0), file_path(file_path)
 {

@@ -14,7 +14,6 @@ public:
   VertexBuffer(const void *data, const uint32_t size);
   ~VertexBuffer();
 
-  void Init(const void *data, const uint32_t size);
   void Bind() const;
   static void Unbind();
 };

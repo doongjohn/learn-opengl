@@ -43,10 +43,10 @@ SceneQuadWithTexture::SceneQuadWithTexture(int& window_w, int& window_h, Rendere
     0, 2, 3,
   };
 
-  vbo.Init(positions.data(), sizeof(positions));
-  ebo.Init(indices);
+  new(&vbo) VertexBuffer(positions.data(), sizeof(positions));
+  new(&ebo) IndexBuffer(indices);
 
-  vao.Init();
+  new(&vao) VertexArray();
   vao.AttachVertexBuffer(vbo, {
     { .type = GL_FLOAT, .count = 2 }, // x, y pos
     { .type = GL_FLOAT, .count = 2 }, // tex coord
@@ -57,11 +57,11 @@ SceneQuadWithTexture::SceneQuadWithTexture(int& window_w, int& window_h, Rendere
   ebo.Unbind();
 
   // create shader
-  shader.Init("./res/shaders/textured_quad.glsl");
+  new(&shader) ShaderProgram("./res/shaders/textured_quad.glsl");
   shader.Bind();
 
   // create texture
-  texture.Init("./res/textures/spoonful.jpg");
+  new(&texture) Texture("./res/textures/spoonful.jpg");
   texture.Bind(); // default slot 0
 
   shader.SetUniform1i("u_Texture", 0); // slot 0

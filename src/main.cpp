@@ -1,5 +1,4 @@
 #include <array>
-#include <tuple>
 #include <iostream>
 
 #include "glad/glad.h"
