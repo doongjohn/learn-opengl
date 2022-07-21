@@ -12,6 +12,8 @@ ShaderProgram::ShaderProgram(const std::string& file_path)
 }
 ShaderProgram::~ShaderProgram() {
   glDeleteProgram(this->gl_id);
+  this->gl_id = 0;
+  ShaderProgram::Unbind();
 }
 
 void ShaderProgram::Bind() const {

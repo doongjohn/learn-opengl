@@ -1,22 +1,22 @@
 #pragma once
 
 #include <array>
-#include <string>
 
 #include "scene.hpp"
 #include "scenes/clear_color.hpp"
 #include "scenes/quad.hpp"
+#include "scenes/vertex_color.hpp"
 #include "scenes/quad_with_texture.hpp"
 
 namespace SceneManager {
 
 using std::array;
-using std::string;
 
 static auto default_clear_color = glm::vec3(0.0f, 0.0f, 0.0f);
 static auto scene_list = array {
   "clear color",
   "quad",
+  "vertex color",
   "quad with texture",
 };
 
@@ -29,6 +29,9 @@ Scene* create(int& window_w, int& window_h, Renderer& renderer, ImGuiIO& io, int
       return new SceneQuad
         (window_w, window_h, renderer, io);
     case 2:
+      return new SceneVertexColor
+        (window_w, window_h, renderer, io);
+    case 3:
       return new SceneQuadWithTexture
         (window_w, window_h, renderer, io);
     default:

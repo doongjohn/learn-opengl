@@ -1,11 +1,11 @@
-#include <array>
 #include <iostream>
-
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
+#include <string>
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+
+#include "glad/glad.h"
+#include "GLFW/glfw3.h"
 
 #include "imgui/imgui.h"
 #include "imgui/backends/imgui_impl_glfw.h"
@@ -22,10 +22,9 @@
 #include "scene_manager.hpp"
 
 using std::string;
-using std::array;
 
-int window_w = 800;
-int window_h = 900;
+static int window_w = 800;
+static int window_h = 900;
 
 static void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
   window_w = width;
@@ -111,11 +110,6 @@ int main(int argc, char **argv) {
 
     auto nextScene = SceneManager::selection_menu(scene, window_w, window_h, renderer, io);
     if (nextScene) {
-      VertexArray::Unbind();
-      VertexBuffer::Unbind();
-      IndexBuffer::Unbind();
-      ShaderProgram::Unbind();
-      Texture::Unbind();
       delete scene;
       scene = nextScene;
       renderer.SetClearColor(SceneManager::default_clear_color);

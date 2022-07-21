@@ -30,6 +30,7 @@ Texture::Texture(const std::string& path)
 }
 Texture::~Texture() {
   glDeleteTextures(1, &this->gl_id);
+  Texture::Unbind();
 }
 
 void Texture::Bind(uint64_t slot /* = 0 */) const {

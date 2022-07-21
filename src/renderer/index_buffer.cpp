@@ -11,6 +11,7 @@ IndexBuffer::IndexBuffer(const std::span<uint32_t> data)
 IndexBuffer::~IndexBuffer() {
   glDeleteBuffers(1, &this->gl_id);
   this->gl_id = 0;
+  IndexBuffer::Unbind();
 }
 
 void IndexBuffer::Bind() const {
