@@ -8,8 +8,8 @@ add_requires("glfw")
 target("glad")
   set_kind("static")
   set_languages("c17")
-  add_includedirs("glad/include")
-  add_files("glad/src/*.c")
+  add_includedirs("src/vendor/glad/include")
+  add_files("src/vendor/glad/src/*.c")
 target_end()
 
 target("stb")
@@ -45,9 +45,9 @@ target("opengl")
   set_languages("cxx20")
   add_includedirs(
     "src",
-    "glad/include",
     "src/vendor",
     "src/vendor/glm",
+    "src/vendor/glad/include",
     "src/vendor/imgui"
   )
   add_files(
