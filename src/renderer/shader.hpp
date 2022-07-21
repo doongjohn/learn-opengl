@@ -14,7 +14,7 @@
 
 class ShaderProgram {
 private:
-  int32_t gl_id;
+  int32_t gl_handle;
   std::string file_path;
   std::unordered_map<std::string, int32_t> uniform_cache;
 

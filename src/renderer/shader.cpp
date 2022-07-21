@@ -5,19 +5,19 @@ using std::tuple;
 
 // file path of vertex and fragment shader combined
 ShaderProgram::ShaderProgram(const std::string& file_path)
-  : gl_id(0), file_path(file_path)
+  : gl_handle(0), file_path(file_path)
 {
   auto [vertex_src, fragment_src] = ShaderProgram::ParseShader(file_path);
-  this->gl_id = ShaderProgram::CreateShader(vertex_src, fragment_src);
+  this->gl_handle = ShaderProgram::CreateShader(vertex_src, fragment_src);
 }
 ShaderProgram::~ShaderProgram() {
-  glDeleteProgram(this->gl_id);
-  this->gl_id = 0;
+  glDeleteProgram(this->gl_handle);
+  this->gl_handle = 0;
   ShaderProgram::Unbind();
 }
 
 void ShaderProgram::Bind() const {
-  glUseProgram(this->gl_id);
+  glUseProgram(this->gl_handle);
 }
 void ShaderProgram::Unbind() {
   glUseProgram(0);
@@ -132,7 +132,7 @@ int32_t ShaderProgram::GetUniformLocation(const std::string& name) {
     // return cached location
     return this->uniform_cache[name];
   } else {
-    int32_t loc = glGetUniformLocation(this->gl_id, name.c_str());
+    int32_t loc = glGetUniformLocation(this->gl_handle, name.c_str());
     if (loc == -1) {
       std::cout << "Error: Shader Uniform \"" << name << "\" does not exist!\n";
     } else {

@@ -1,17 +1,17 @@
 #include "vertex_array.hpp"
 
 VertexArray::VertexArray() {
-  glGenVertexArrays(1, &this->gl_id);
-  glBindVertexArray(this->gl_id);
+  glGenVertexArrays(1, &this->gl_handle);
+  glBindVertexArray(this->gl_handle);
 }
 VertexArray::~VertexArray() {
-  glDeleteVertexArrays(1, &this->gl_id);
-  this->gl_id = 0;
+  glDeleteVertexArrays(1, &this->gl_handle);
+  this->gl_handle = 0;
   VertexArray::Unbind();
 }
 
 void VertexArray::Bind() const {
-  glBindVertexArray(this->gl_id);
+  glBindVertexArray(this->gl_handle);
 }
 void VertexArray::Unbind() {
   glBindVertexArray(0);

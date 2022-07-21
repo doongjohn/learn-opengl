@@ -20,7 +20,7 @@ struct VertexArrayLayout {
 
 class VertexArray {
 private:
-  uint32_t gl_id;
+  uint32_t gl_handle;
   std::vector<VertexArrayLayout> layouts;
 
 public:

@@ -7,7 +7,7 @@
 
 class VertexBuffer {
 private:
-  uint32_t gl_id;
+  uint32_t gl_handle;
 
 public:
   VertexBuffer() {}

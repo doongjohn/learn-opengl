@@ -7,7 +7,7 @@
 
 class Texture {
 private:
-  uint32_t gl_id;
+  uint32_t gl_handle;
   std::string file_path;
   uint8_t *local_buffer;
   int width;

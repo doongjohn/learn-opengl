@@ -1,15 +1,15 @@
 #include "texture.hpp"
 
 Texture::Texture(const std::string& path)
- : gl_id(0), file_path(path), local_buffer(nullptr), width(0), height(0), bits_per_pixel(0)
+ : gl_handle(0), file_path(path), local_buffer(nullptr), width(0), height(0), bits_per_pixel(0)
 {
   // opengl texture [0,0] is bottom left
   // but most image formats [0,0] is top left
   stbi_set_flip_vertically_on_load(1);
   this->local_buffer = stbi_load(path.c_str(), &this->width, &this->height, &this->bits_per_pixel, 4);
 
-  glGenTextures(1, &this->gl_id);
-  glBindTexture(GL_TEXTURE_2D, this->gl_id);
+  glGenTextures(1, &this->gl_handle);
+  glBindTexture(GL_TEXTURE_2D, this->gl_handle);
 
   // these 4 params are mendatory
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -29,13 +29,13 @@ Texture::Texture(const std::string& path)
   }
 }
 Texture::~Texture() {
-  glDeleteTextures(1, &this->gl_id);
+  glDeleteTextures(1, &this->gl_handle);
   Texture::Unbind();
 }
 
 void Texture::Bind(uint64_t slot /* = 0 */) const {
   glActiveTexture(GL_TEXTURE0 + slot);
-  glBindTexture(GL_TEXTURE_2D, this->gl_id);
+  glBindTexture(GL_TEXTURE_2D, this->gl_handle);
 }
 void Texture::Unbind() {
   glBindTexture(GL_TEXTURE_2D, 0);

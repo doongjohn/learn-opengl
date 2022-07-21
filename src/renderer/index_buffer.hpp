@@ -6,7 +6,7 @@
 
 class IndexBuffer {
 private:
-  uint32_t gl_id;
+  uint32_t gl_handle;
   uint32_t count;
 
 public:
