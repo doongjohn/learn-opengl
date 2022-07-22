@@ -30,16 +30,16 @@ void ShaderProgram::SetUniform1f(const std::string& name, const float value) {
   glUniform1i(this->GetUniformLocation(name), value);
 }
 void ShaderProgram::SetUniform3f(const std::string& name, const glm::vec3& value) {
-  glUniform3f(this->GetUniformLocation(name), value[0], value[1], value[2]);
+  glUniform3fv(this->GetUniformLocation(name), 1, &value[0]);
 }
 void ShaderProgram::SetUniform3f(const std::string& name, const std::array<float, 3>& value) {
-  glUniform3f(this->GetUniformLocation(name), value[0], value[1], value[2]);
+  glUniform3fv(this->GetUniformLocation(name), 1, &value[0]);
 }
 void ShaderProgram::SetUniform4f(const std::string& name, const glm::vec4& value) {
-  glUniform4f(this->GetUniformLocation(name), value[0], value[1], value[2], value[3]);
+  glUniform4fv(this->GetUniformLocation(name), 1, &value[0]);
 }
 void ShaderProgram::SetUniform4f(const std::string& name, const std::array<float, 4>& value) {
-  glUniform4f(this->GetUniformLocation(name), value[0], value[1], value[2], value[3]);
+  glUniform4fv(this->GetUniformLocation(name), 1, &value[0]);
 }
 void ShaderProgram::SetUniformMat4f(const std::string& name, const glm::mat4& mat) {
   glUniformMatrix4fv(this->GetUniformLocation(name), 1, GL_FALSE, &mat[0][0]);

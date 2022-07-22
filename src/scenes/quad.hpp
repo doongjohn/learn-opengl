@@ -31,7 +31,7 @@ SceneQuad::SceneQuad(Renderer& renderer, ImGuiIO& io)
   };
 
   // index buffer
-  // (the order must be anti-clockwise)
+  // (default winding order is counterclockwise)
   uint32_t indices[6] = {
     0, 1, 2,
     0, 2, 3,
@@ -44,7 +44,6 @@ SceneQuad::SceneQuad(Renderer& renderer, ImGuiIO& io)
     { .type = GL_FLOAT, .count = 2 }, // x, y pos
   });
   vao.Unbind();
-
   vbo.Unbind();
   ebo.Unbind();
 
@@ -75,7 +74,7 @@ void SceneQuad::OnRender() {
   shader.Bind();
   shader.SetUniformMat4f("u_Mvp", mvp);
   shader.SetUniform4f("u_Color", quad_color);
-  renderer.Draw(shader, vao, ebo);
+  renderer.DrawTriangles(shader, vao, ebo);
 }
 
 void SceneQuad::OnImGuiRender() {

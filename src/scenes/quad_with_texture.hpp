@@ -37,7 +37,7 @@ SceneQuadWithTexture::SceneQuadWithTexture(Renderer& renderer, ImGuiIO& io)
   };
 
   // index buffer
-  // (the order must be anti-clockwise)
+  // (default winding order is counterclockwise)
   uint32_t indices[6] = {
     0, 1, 2,
     0, 2, 3,
@@ -51,7 +51,6 @@ SceneQuadWithTexture::SceneQuadWithTexture(Renderer& renderer, ImGuiIO& io)
     { .type = GL_FLOAT, .count = 2 }, // tex coord
   });
   vao.Unbind();
-
   vbo.Unbind();
   ebo.Unbind();
 
@@ -59,13 +58,12 @@ SceneQuadWithTexture::SceneQuadWithTexture(Renderer& renderer, ImGuiIO& io)
   new(&shader) ShaderProgram("./res/shaders/textured_quad.glsl");
   shader.Bind();
 
-  // create texture
+  // create and assgin texture
   new(&texture) Texture("./res/textures/spoonful.jpg");
-  texture.Bind(); // default slot 0
-
   shader.SetUniform1i("u_Texture", 0); // slot 0
-  shader.Unbind(); // removes preformance warning
-  texture.Unbind();
+
+  // removes preformance warning
+  shader.Unbind();
 
   // initialize model position
   quad_pos = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -92,7 +90,7 @@ void SceneQuadWithTexture::OnRender() {
   shader.SetUniformMat4f("u_Mvp", mvp);
   shader.SetUniform4f("u_Tint", quad_color);
   texture.Bind();
-  renderer.Draw(shader, vao, ebo);
+  renderer.DrawTriangles(shader, vao, ebo);
 }
 
 void SceneQuadWithTexture::OnImGuiRender() {

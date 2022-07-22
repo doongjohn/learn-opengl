@@ -6,19 +6,12 @@
 
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
-
 #include "imgui/imgui.h"
 #include "imgui/backends/imgui_impl_glfw.h"
 #include "imgui/backends/imgui_impl_opengl3.h"
 
 #include "renderer/debugmessage.hpp"
-#include "renderer/vertex_array.hpp"
-#include "renderer/vertex_buffer.hpp"
-#include "renderer/index_buffer.hpp"
-#include "renderer/shader.hpp"
-#include "renderer/texture.hpp"
 #include "renderer/renderer.hpp"
-
 #include "scene_manager.hpp"
 
 using std::string;

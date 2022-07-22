@@ -6,14 +6,8 @@
 #include "glm/gtc/matrix_transform.hpp"
 
 #include "glad/glad.h"
-
 #include "imgui/imgui.h"
 
-#include "renderer/vertex_array.hpp"
-#include "renderer/vertex_buffer.hpp"
-#include "renderer/index_buffer.hpp"
-#include "renderer/shader.hpp"
-#include "renderer/texture.hpp"
 #include "renderer/renderer.hpp"
 
 class Scene {

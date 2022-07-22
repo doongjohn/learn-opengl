@@ -5,8 +5,8 @@
 class SceneVertexColor : public Scene {
 private:
   VertexBuffer vbo;
-  VertexArray vao;
   IndexBuffer ebo;
+  VertexArray vao;
   ShaderProgram shader;
   glm::vec3 quad_pos;
 
@@ -22,16 +22,20 @@ public:
 SceneVertexColor::SceneVertexColor(Renderer& renderer, ImGuiIO& io)
   : Scene(renderer, io)
 {
-  // https://stackoverflow.com/questions/14971282/applying-color-to-single-vertices-in-a-quad-in-opengl
+  struct Vertex {
+    float pos[2];
+    float uv[2];
+  };
+
   auto positions = std::array {
-    -100.0f, -100.0f, /* color: */ 1.0f, 0.0f, 1.0f,
-     100.0f, -100.0f, /* color: */ 0.0f, 1.0f, 0.5f,
-     100.0f,  100.0f, /* color: */ 1.0f, 1.0f, 0.0f,
-    -100.0f,  100.0f, /* color: */ 0.0f, 0.5f, 1.0f,
+    Vertex{ .pos = { -100.0f, -100.0f }, .uv = { 0, 0 } },
+    Vertex{ .pos = {  100.0f, -100.0f }, .uv = { 1, 0 } },
+    Vertex{ .pos = {  100.0f,  100.0f }, .uv = { 1, 1 } },
+    Vertex{ .pos = { -100.0f,  100.0f }, .uv = { 0, 1 } },
   };
 
   // index buffer
-  // (the order must be anti-clockwise)
+  // (default winding order is counterclockwise)
   uint32_t indices[6] = {
     0, 1, 2,
     0, 2, 3,
@@ -41,16 +45,15 @@ SceneVertexColor::SceneVertexColor(Renderer& renderer, ImGuiIO& io)
   new(&ebo) IndexBuffer(indices);
 
   vao.AttachVertexBuffer(vbo, {
-    { .type = GL_FLOAT, .count = 2 }, // x, y pos
-    { .type = GL_FLOAT, .count = 3 }, // color
+    { .type = GL_FLOAT, .count = 2 },
+    { .type = GL_FLOAT, .count = 2 },
   });
   vao.Unbind();
-
   vbo.Unbind();
   ebo.Unbind();
 
   // create shader
-  new(&shader) ShaderProgram("./res/shaders/vertex_color.glsl");
+  new(&shader) ShaderProgram("./res/shaders/vertex_color_quad.glsl");
 
   // initialize model position
   quad_pos = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -70,11 +73,14 @@ void SceneVertexColor::OnRender() {
   glm::mat4 model_r = glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
   glm::mat4 mvp = proj * view * (model_t * model_r);
 
-  vao.Bind();
-  ebo.Bind();
   shader.Bind();
   shader.SetUniformMat4f("u_Mvp", mvp);
-  renderer.Draw(shader, vao, ebo);
+  shader.SetUniform3f("u_Color_bl", glm::vec3(1.0f, 0.0f, 0.0f));
+  shader.SetUniform3f("u_Color_br", glm::vec3(0.0f, 1.0f, 0.0f));
+  shader.SetUniform3f("u_Color_tr", glm::vec3(0.0f, 0.0f, 1.0f));
+  shader.SetUniform3f("u_Color_tl", glm::vec3(1.0f, 1.0f, 1.0f));
+
+  renderer.DrawTriangles(shader, vao, ebo);
 }
 
 void SceneVertexColor::OnImGuiRender() {
