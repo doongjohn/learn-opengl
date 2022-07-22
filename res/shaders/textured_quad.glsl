@@ -16,7 +16,7 @@ void main() {
 #type_fragment
 #version 460 core
 
-out vec4 color;
+out vec4 out_Color;
 in vec2 v_TexCoord;
 
 uniform vec4 u_Tint;
@@ -24,5 +24,5 @@ uniform sampler2D u_Texture;
 
 void main() {
   vec4 texColor = texture(u_Texture, v_TexCoord);
-  color = texColor * u_Tint;
+  out_Color = texColor * u_Tint;
 }

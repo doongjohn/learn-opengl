@@ -1,14 +1,36 @@
 #include "shader.hpp"
 
-using std::string;
+using std::array;
 using std::tuple;
+using std::string;
+using std::string_view;
 
 // file path of vertex and fragment shader combined
 ShaderProgram::ShaderProgram(const std::string& file_path)
   : gl_handle(0), file_path(file_path)
 {
-  auto [vertex_src, fragment_src] = ShaderProgram::ParseShader(file_path);
+  auto [vertex_src, fragment_src] = this->ParseShader(file_path);
   this->gl_handle = ShaderProgram::CreateShader(vertex_src, fragment_src);
+
+  auto props = array {
+    GL_NAME_LENGTH,
+    GL_TYPE,
+    GL_ARRAY_SIZE,
+  };
+  array<GLint, 3> prop_data {0};
+
+  int uniform_count = 0;
+  glGetProgramInterfaceiv(this->gl_handle, GL_UNIFORM, GL_ACTIVE_RESOURCES, &uniform_count);
+  for (int i = 0; i < uniform_count; ++i) {
+    glGetProgramResourceiv(this->gl_handle, GL_UNIFORM, i, 3, (GLenum*)props.data(), 3, nullptr, prop_data.data());
+
+    string name;
+    name.resize(prop_data[0] - 1);
+    glGetProgramResourceName(this->gl_handle, GL_UNIFORM, i, name.size() + 1, nullptr, (GLchar*)name.c_str());
+
+    int location = glGetUniformLocation(this->gl_handle, name.c_str());
+    this->uniform_cache[name] = location;
+  }
 }
 ShaderProgram::~ShaderProgram() {
   glDeleteProgram(this->gl_handle);
@@ -131,16 +153,9 @@ uint32_t ShaderProgram::CreateShader(const string& vertex_shader, const string& 
 
 int32_t ShaderProgram::GetUniformLocation(const std::string& name) {
   if (this->uniform_cache.find(name) != this->uniform_cache.end()) {
-    // return cached location
     return this->uniform_cache[name];
   } else {
-    int32_t loc = glGetUniformLocation(this->gl_handle, name.c_str());
-    if (loc == -1) {
-      std::cout << "Error: Shader Uniform \"" << name << "\" does not exist!\n";
-    } else {
-      // cache the location
-      this->uniform_cache[name] = loc;
-    }
-    return loc;
+    std::cout << "Error: Shader Uniform \"" << name << "\" does not exist!\n";
+    return -1;
   }
 }

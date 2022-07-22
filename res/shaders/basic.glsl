@@ -13,10 +13,10 @@ void main() {
 #type_fragment
 #version 460 core
 
-out vec4 color;
+out vec4 out_Color;
 
 uniform vec4 u_Color;
 
 void main() {
-  color = u_Color;
+  out_Color = u_Color;
 }

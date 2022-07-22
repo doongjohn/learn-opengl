@@ -19,12 +19,12 @@ void main() {
 
 in vec2 v_Uv;
 
-uniform vec3 u_Color_tl;
-uniform vec3 u_Color_bl;
-uniform vec3 u_Color_tr;
-uniform vec3 u_Color_br;
+uniform vec3 u_Color_tl; // top left
+uniform vec3 u_Color_bl; // bottom left
+uniform vec3 u_Color_tr; // top right
+uniform vec3 u_Color_br; // bottom right
 
-out vec4 color;
+out vec4 out_Color;
 
 // linear color interpolation only works with triangle
 // so we need custom shader in order to make quad shape interpolation work
@@ -33,5 +33,5 @@ void main() {
   vec3 l = mix(u_Color_bl, u_Color_tl, v_Uv.t);
   vec3 r = mix(u_Color_br, u_Color_tr, v_Uv.t);
   vec3 c = mix(l, r, v_Uv.s);
-  color = vec4(c, 1f);
+  out_Color = vec4(c, 1f);
 }

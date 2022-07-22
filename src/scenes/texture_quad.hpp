@@ -24,15 +24,15 @@ public:
 SceneQuadWithTexture::SceneQuadWithTexture(Renderer& renderer, ImGuiIO& io)
   : Scene(renderer, io)
 {
-  // image source: https://www.freeillustrated.com/illustrations/2018/08/10
-  float image_scale = 0.3f;
-  float image_w = 1639 * image_scale;
-  float image_h = 2048 * image_scale;
-
   struct Vertex {
     float pos[2];
     float uv[2];
   };
+
+  // image source: https://www.freeillustrated.com/illustrations/2018/08/10
+  float image_scale = 0.3f;
+  float image_w = 1639 * image_scale;
+  float image_h = 2048 * image_scale;
 
   // vertex buffer
   auto positions = std::array {
@@ -103,6 +103,6 @@ void SceneQuadWithTexture::OnImGuiRender() {
   ImGui::Begin("Hello, world!");
   ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
   ImGui::SliderFloat3("model position", &quad_pos[0], -200.0f, 200.0f);
-  ImGui::ColorEdit4("Color", &quad_color[0]);
+  ImGui::ColorEdit4("Color tint", &quad_color[0]);
   ImGui::End();
 }
