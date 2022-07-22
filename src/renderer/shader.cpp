@@ -19,13 +19,16 @@ ShaderProgram::ShaderProgram(const std::string& file_path)
   };
   array<GLint, 3> prop_data {0};
 
+  // TODO: also do uniform block
+  // https://stackoverflow.com/questions/71506455/get-names-of-uniforms-in-uniform-block
+  // https://stackoverflow.com/questions/440144/in-opengl-is-there-a-way-to-get-a-list-of-all-uniforms-attribs-used-by-a-shade
   int uniform_count = 0;
   glGetProgramInterfaceiv(this->gl_handle, GL_UNIFORM, GL_ACTIVE_RESOURCES, &uniform_count);
   for (int i = 0; i < uniform_count; ++i) {
     glGetProgramResourceiv(this->gl_handle, GL_UNIFORM, i, 3, (GLenum*)props.data(), 3, nullptr, prop_data.data());
 
     string name;
-    name.resize(prop_data[0] - 1);
+    name.resize(prop_data[0] - 1); // exclude last '\0'
     glGetProgramResourceName(this->gl_handle, GL_UNIFORM, i, name.size() + 1, nullptr, (GLchar*)name.c_str());
 
     int location = glGetUniformLocation(this->gl_handle, name.c_str());

@@ -1,7 +1,5 @@
 #pragma once
 
-#include <cmath>
-#include <algorithm>
 #include <array>
 #include <tuple>
 #include <unordered_map>
