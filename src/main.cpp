@@ -83,8 +83,6 @@ int main(int argc, char **argv) {
   ImGui_ImplGlfw_InitForOpenGL(window, true);
   ImGui_ImplOpenGL3_Init("#version 460 core");
 
-  // create renderer
-
   // create scene
   Scene* scene = SceneManager::create_scene(renderer, io, 0);
 
@@ -99,7 +97,7 @@ int main(int argc, char **argv) {
 
     scene->OnImGuiRender();
 
-    auto nextScene = SceneManager::selection_menu(scene, renderer, io);
+    auto nextScene = SceneManager::draw_menu(scene, renderer, io);
     if (nextScene) {
       delete scene;
       scene = nextScene;

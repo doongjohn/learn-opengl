@@ -28,12 +28,18 @@ SceneQuadWithTexture::SceneQuadWithTexture(Renderer& renderer, ImGuiIO& io)
   float image_scale = 0.3f;
   float image_w = 1639 * image_scale;
   float image_h = 2048 * image_scale;
+
+  struct Vertex {
+    float pos[2];
+    float uv[2];
+  };
+
   // vertex buffer
   auto positions = std::array {
-    /* pos: */ -image_w / 2, -image_h / 2, /* texture coord: */ 0.0f, 0.0f,
-    /* pos: */  image_w / 2, -image_h / 2, /* texture coord: */ 1.0f, 0.0f,
-    /* pos: */  image_w / 2,  image_h / 2, /* texture coord: */ 1.0f, 1.0f,
-    /* pos: */ -image_w / 2,  image_h / 2, /* texture coord: */ 0.0f, 1.0f
+    Vertex { .pos = { -image_w / 2, -image_h / 2 }, .uv = { 0.0f, 0.0f } },
+    Vertex { .pos = {  image_w / 2, -image_h / 2 }, .uv = { 1.0f, 0.0f } },
+    Vertex { .pos = {  image_w / 2,  image_h / 2 }, .uv = { 1.0f, 1.0f } },
+    Vertex { .pos = { -image_w / 2,  image_h / 2 }, .uv = { 0.0f, 1.0f } },
   };
 
   // index buffer
