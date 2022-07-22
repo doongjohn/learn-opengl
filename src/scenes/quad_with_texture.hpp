@@ -13,7 +13,7 @@ private:
   glm::vec4 quad_color;
 
 public:
-  SceneQuadWithTexture(int& window_w, int& window_h, Renderer& renderer, ImGuiIO& io);
+  SceneQuadWithTexture(Renderer& renderer, ImGuiIO& io);
   ~SceneQuadWithTexture();
 
   void OnUpdate(const float deltaTime) override;
@@ -21,8 +21,8 @@ public:
   void OnImGuiRender() override;
 };
 
-SceneQuadWithTexture::SceneQuadWithTexture(int& window_w, int& window_h, Renderer& renderer, ImGuiIO& io)
-  : Scene(window_w, window_h, renderer, io)
+SceneQuadWithTexture::SceneQuadWithTexture(Renderer& renderer, ImGuiIO& io)
+  : Scene(renderer, io)
 {
   // image source: https://www.freeillustrated.com/illustrations/2018/08/10
   float image_scale = 0.3f;
@@ -80,7 +80,7 @@ void SceneQuadWithTexture::OnRender() {
   rotation += 0.2f;
 
   // set mvp matrix
-  glm::mat4 proj = glm::ortho(-(float)window_w / 2.0f, (float)window_w / 2.0f, -(float)window_h / 2.0f, (float)window_h / 2.0f);
+  glm::mat4 proj = glm::ortho(-renderer.width / 2.0f, renderer.width / 2.0f, -renderer.height / 2.0f, renderer.height / 2.0f);
   glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
   glm::mat4 model_t = glm::translate(glm::mat4(1.0f), quad_pos);
   glm::mat4 model_r = glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));

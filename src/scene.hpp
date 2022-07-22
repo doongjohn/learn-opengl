@@ -18,14 +18,12 @@
 
 class Scene {
 protected:
-  const int& window_w;
-  const int& window_h;
   const Renderer& renderer;
   const ImGuiIO& io;
 
 public:
-  Scene(int& window_w, int& window_h, Renderer& renderer, ImGuiIO& io)
-    : window_w(window_w), window_h(window_h), renderer(renderer), io(io) { }
+  Scene(Renderer& renderer, ImGuiIO& io)
+    : renderer(renderer), io(io) { }
   virtual ~Scene() {}
 
   virtual void OnUpdate(const float deltaTime) {}

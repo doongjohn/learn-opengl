@@ -7,7 +7,7 @@ private:
   glm::vec3 clear_color;
 
 public:
-  SceneClearColor(int& window_w, int& window_h, Renderer& renderer, ImGuiIO& io);
+  SceneClearColor(Renderer& renderer, ImGuiIO& io);
   ~SceneClearColor();
 
   void OnUpdate(const float deltaTime) override;
@@ -15,8 +15,8 @@ public:
   void OnImGuiRender() override;
 };
 
-SceneClearColor::SceneClearColor(int& window_w, int& window_h, Renderer& renderer, ImGuiIO& io)
-  : Scene(window_w, window_h, renderer, io), clear_color(glm::vec3(1.0f, 1.0f, 1.0f)) { }
+SceneClearColor::SceneClearColor(Renderer& renderer, ImGuiIO& io)
+  : Scene(renderer, io), clear_color(glm::vec3(1.0f, 1.0f, 1.0f)) { }
 SceneClearColor::~SceneClearColor() { }
 
 void SceneClearColor::OnUpdate(const float deltaTime) { }

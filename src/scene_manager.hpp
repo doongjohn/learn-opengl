@@ -20,31 +20,27 @@ static auto scene_list = array {
   "quad with texture",
 };
 
-Scene* create_scene(int& window_w, int& window_h, Renderer& renderer, ImGuiIO& io, int scene_index) {
+Scene* create_scene(Renderer& renderer, ImGuiIO& io, int scene_index) {
   switch (scene_index) {
     case 0:
-      return new SceneClearColor
-        (window_w, window_h, renderer, io);
+      return new SceneClearColor(renderer, io);
     case 1:
-      return new SceneQuad
-        (window_w, window_h, renderer, io);
+      return new SceneQuad(renderer, io);
     case 2:
-      return new SceneVertexColor
-        (window_w, window_h, renderer, io);
+      return new SceneVertexColor(renderer, io);
     case 3:
-      return new SceneQuadWithTexture
-        (window_w, window_h, renderer, io);
+      return new SceneQuadWithTexture(renderer, io);
     default:
       return nullptr;
   }
 }
 
-Scene* selection_menu(Scene*& scene, int& window_w, int& window_h, Renderer& renderer, ImGuiIO& io) {
+Scene* selection_menu(Scene*& scene, Renderer& renderer, ImGuiIO& io) {
   ImGui::Begin("Scenes");
   int i = 0;
   for (auto& scene : scene_list) {
     if (ImGui::Button(scene)) {
-      return SceneManager::create_scene(window_w, window_h, renderer, io, i);
+      return SceneManager::create_scene(renderer, io, i);
     }
     ++i;
   }

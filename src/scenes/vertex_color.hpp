@@ -11,7 +11,7 @@ private:
   glm::vec3 quad_pos;
 
 public:
-  SceneVertexColor(int& window_w, int& window_h, Renderer& renderer, ImGuiIO& io);
+  SceneVertexColor(Renderer& renderer, ImGuiIO& io);
   ~SceneVertexColor();
 
   void OnUpdate(const float deltaTime) override;
@@ -19,8 +19,8 @@ public:
   void OnImGuiRender() override;
 };
 
-SceneVertexColor::SceneVertexColor(int& window_w, int& window_h, Renderer& renderer, ImGuiIO& io)
-  : Scene(window_w, window_h, renderer, io)
+SceneVertexColor::SceneVertexColor(Renderer& renderer, ImGuiIO& io)
+  : Scene(renderer, io)
 {
   // https://stackoverflow.com/questions/14971282/applying-color-to-single-vertices-in-a-quad-in-opengl
   auto positions = std::array {
@@ -64,7 +64,7 @@ void SceneVertexColor::OnRender() {
   rotation += 0.2f;
 
   // set mvp matrix
-  glm::mat4 proj = glm::ortho(-(float)window_w / 2.0f, (float)window_w / 2.0f, -(float)window_h / 2.0f, (float)window_h / 2.0f);
+  glm::mat4 proj = glm::ortho(-renderer.width / 2.0f, renderer.width / 2.0f, -renderer.height / 2.0f, renderer.height / 2.0f);
   glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
   glm::mat4 model_t = glm::translate(glm::mat4(1.0f), quad_pos);
   glm::mat4 model_r = glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));

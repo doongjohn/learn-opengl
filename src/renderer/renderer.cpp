@@ -1,5 +1,11 @@
 #include "renderer.hpp"
 
+Renderer::Renderer(int width, int height)
+  : width(width), height(height)
+{ }
+Renderer::~Renderer() { }
+
+
 void Renderer::Clear() const {
   glClear(GL_COLOR_BUFFER_BIT);
 }

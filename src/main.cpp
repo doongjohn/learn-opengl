@@ -23,12 +23,11 @@
 
 using std::string;
 
-static int window_w = 800;
-static int window_h = 900;
+static Renderer renderer(600, 800);
 
 static void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
-  window_w = width;
-  window_h = height;
+  renderer.width = width;
+  renderer.height = height;
   glViewport(0, 0, width, height);
 }
 
@@ -43,7 +42,7 @@ int main(int argc, char **argv) {
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
   // create window
-  GLFWwindow *window = glfwCreateWindow(window_w, window_h, "LearnOpenGL", nullptr, nullptr);
+  GLFWwindow *window = glfwCreateWindow(renderer.width, renderer.height, "LearnOpenGL", nullptr, nullptr);
   if (window == nullptr) {
     std::cout << "Failed to create GLFW window" << std::endl;
     glfwTerminate();
@@ -69,7 +68,7 @@ int main(int argc, char **argv) {
   std::cout << glGetString(GL_VERSION) << std::endl;
 
   // set viewport size
-  glViewport(0, 0, window_w, window_h);
+  glViewport(0, 0, renderer.width, renderer.height);
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
   // set blend mode
@@ -92,10 +91,9 @@ int main(int argc, char **argv) {
   ImGui_ImplOpenGL3_Init("#version 460 core");
 
   // create renderer
-  Renderer renderer;
 
   // create scene
-  Scene* scene = SceneManager::create_scene(window_w, window_h, renderer, io, 0);
+  Scene* scene = SceneManager::create_scene(renderer, io, 0);
 
   // render loop
   while (!glfwWindowShouldClose(window)) {
@@ -108,7 +106,7 @@ int main(int argc, char **argv) {
 
     scene->OnImGuiRender();
 
-    auto nextScene = SceneManager::selection_menu(scene, window_w, window_h, renderer, io);
+    auto nextScene = SceneManager::selection_menu(scene, renderer, io);
     if (nextScene) {
       delete scene;
       scene = nextScene;

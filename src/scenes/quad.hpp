@@ -12,7 +12,7 @@ private:
   glm::vec4 quad_color;
 
 public:
-  SceneQuad(int& window_w, int& window_h, Renderer& renderer, ImGuiIO& io);
+  SceneQuad(Renderer& renderer, ImGuiIO& io);
   ~SceneQuad();
 
   void OnUpdate(const float deltaTime) override;
@@ -20,8 +20,8 @@ public:
   void OnImGuiRender() override;
 };
 
-SceneQuad::SceneQuad(int& window_w, int& window_h, Renderer& renderer, ImGuiIO& io)
-  : Scene(window_w, window_h, renderer, io)
+SceneQuad::SceneQuad(Renderer& renderer, ImGuiIO& io)
+  : Scene(renderer, io)
 {
   auto positions = std::array {
     -100.0f, -100.0f,
@@ -64,7 +64,7 @@ void SceneQuad::OnRender() {
   rotation += 0.2f;
 
   // set mvp matrix
-  glm::mat4 proj = glm::ortho(-(float)window_w / 2.0f, (float)window_w / 2.0f, -(float)window_h / 2.0f, (float)window_h / 2.0f);
+  glm::mat4 proj = glm::ortho(-renderer.width / 2.0f, renderer.width / 2.0f, -renderer.height / 2.0f, renderer.height / 2.0f);
   glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
   glm::mat4 model_t = glm::translate(glm::mat4(1.0f), quad_pos);
   glm::mat4 model_r = glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
