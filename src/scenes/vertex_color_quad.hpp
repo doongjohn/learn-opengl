@@ -55,10 +55,10 @@ SceneVertexColorQuad::SceneVertexColorQuad(Renderer& renderer, ImGuiIO& io)
   // create shader
   new(&shader) ShaderProgram("./res/shaders/vertex_color_quad.glsl");
   shader.Bind();
-  shader.SetUniform3f("u_Color_bl", glm::vec3(1.0f, 0.0f, 0.0f));
-  shader.SetUniform3f("u_Color_br", glm::vec3(0.0f, 1.0f, 0.0f));
-  shader.SetUniform3f("u_Color_tr", glm::vec3(0.0f, 0.0f, 1.0f));
-  shader.SetUniform3f("u_Color_tl", glm::vec3(1.0f, 1.0f, 1.0f));
+  shader.SetUniform3f("u_Color_bl", glm::vec3(254, 226, 179) / 255.0f);
+  shader.SetUniform3f("u_Color_br", glm::vec3(255, 162, 153) / 255.0f);
+  shader.SetUniform3f("u_Color_tr", glm::vec3(173, 105, 137) / 255.0f);
+  shader.SetUniform3f("u_Color_tl", glm::vec3(86, 35, 73) / 255.0f);
   shader.Unbind();
 
   // initialize model position

@@ -27,10 +27,11 @@ SceneVertexColorTriangle::SceneVertexColorTriangle(Renderer& renderer, ImGuiIO& 
     float color[3];
   };
 
+  const float height = sqrtf(10000 - 2500);
   auto positions = std::array {
-    Vertex{ .pos = { -100.0f, -100.0f }, .color = { 1.0f, 0.0f, 0.0f } },
-    Vertex{ .pos = {  100.0f, -100.0f }, .color = { 0.0f, 1.0f, 0.0f } },
-    Vertex{ .pos = {  0.0f, sqrtf(10000 - 2500) }, .color = { 0.0f, 0.0f, 1.0f } },
+    Vertex{ .pos = { -100.0f, -100.0f }, .color = { 255 / 255.0f, 128 / 255.0f, 128 / 255.0f } },
+    Vertex{ .pos = {  100.0f, -100.0f }, .color = { 255 / 255.0f, 220 / 255.0f, 188 / 255.0f } },
+    Vertex{ .pos = {  0.0f,    height }, .color = { 192 / 255.0f, 255 / 255.0f, 166 / 255.0f } },
   };
 
   // index buffer
