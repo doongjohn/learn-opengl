@@ -130,13 +130,15 @@ uint32_t ShaderProgram::CompileShader(const uint32_t shader_type, const string& 
         std::cout << "vertex shader!\n";
         break;
       case GL_FRAGMENT_SHADER:
-        std::cout << "vertex shader!\n";
+        std::cout << "fragment shader!\n";
         break;
     }
     std::cout << message << '\n';
 
     // delete shader
     glDeleteShader(shader_handle);
+
+    exit(1);
     return 0;
   }
 
