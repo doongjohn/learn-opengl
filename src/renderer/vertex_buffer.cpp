@@ -13,7 +13,6 @@ VertexBuffer::VertexBuffer(const void *data, const uint32_t size) {
 }
 VertexBuffer::~VertexBuffer() {
   glDeleteBuffers(1, &this->gl_handle);
-  this->gl_handle = 0;
   VertexBuffer::Unbind();
 }
 

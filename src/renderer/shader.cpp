@@ -11,10 +11,6 @@ ShaderProgram::ShaderProgram(const std::string& file_path)
 {
   auto [vertex_src, fragment_src] = this->ParseShader(file_path);
   this->gl_handle = ShaderProgram::CreateShader(vertex_src, fragment_src);
-  if (this->gl_handle == 0) {
-    std::cout << "Error: failed to create a shader program!\n";
-    exit(1);
-  }
 
   auto props = array {
     GL_NAME_LENGTH,
@@ -41,7 +37,6 @@ ShaderProgram::ShaderProgram(const std::string& file_path)
 }
 ShaderProgram::~ShaderProgram() {
   glDeleteProgram(this->gl_handle);
-  this->gl_handle = 0;
   ShaderProgram::Unbind();
 }
 
@@ -139,37 +134,36 @@ uint32_t ShaderProgram::CompileShader(const uint32_t shader_type, const string& 
     glDeleteShader(shader_handle);
 
     exit(1);
-    return 0;
   }
 
   return shader_handle;
 }
 
 uint32_t ShaderProgram::CreateShader(const string& vertex_shader, const string& fragment_shader) {
-  uint32_t id = glCreateProgram();
-  uint32_t vs = ShaderProgram::CompileShader(GL_VERTEX_SHADER, vertex_shader);
-  uint32_t fs = ShaderProgram::CompileShader(GL_FRAGMENT_SHADER, fragment_shader);
-
-  // compilation failed
-  if (vs * fs == 0) {
-    return 0;
+  uint32_t program_handle = glCreateProgram();
+  if (program_handle == 0) {
+    std::cout << "Error: failed to create a shader program!\n";
+    exit(1);
   }
 
-  glAttachShader(id, vs);
-  glAttachShader(id, fs);
-  glLinkProgram(id);
-  glValidateProgram(id);
+  uint32_t vs_handle = ShaderProgram::CompileShader(GL_VERTEX_SHADER, vertex_shader);
+  uint32_t fs_handle = ShaderProgram::CompileShader(GL_FRAGMENT_SHADER, fragment_shader);
 
-  glDeleteShader(vs);
-  glDeleteShader(fs);
-  return id;
+  glAttachShader(program_handle, vs_handle);
+  glAttachShader(program_handle, fs_handle);
+  glLinkProgram(program_handle);
+  glValidateProgram(program_handle);
+
+  glDeleteShader(vs_handle);
+  glDeleteShader(fs_handle);
+  return program_handle;
 }
 
 int32_t ShaderProgram::GetUniformLocation(const std::string& name) {
   if (this->uniform_cache.find(name) != this->uniform_cache.end()) {
     return this->uniform_cache[name];
   } else {
-    std::cout << "Error: Shader Uniform \"" << name << "\" does not exist!\n";
+    std::cout << "Error: Cannot find Shader Uniform \"" << name << "\"\n";
     return -1;
   }
 }
