@@ -26,10 +26,11 @@ uniform vec3 u_Color_br; // bottom right
 
 out vec4 out_Color;
 
-// linear color interpolation only works with triangle
-// so we need custom shader in order to make quad shape interpolation work
+// defualt linear color interpolation only works with triangle
+// so we need a custom shader for a quad in order to properly interpolate its color
 // https://stackoverflow.com/questions/60212615/how-to-properly-blend-colors-across-two-triangles-and-remove-diagonal-smear
 void main() {
+  // bilinear interpolation
   vec3 l = mix(u_Color_bl, u_Color_tl, v_Uv.t);
   vec3 r = mix(u_Color_br, u_Color_tr, v_Uv.t);
   vec3 c = mix(l, r, v_Uv.s);

@@ -9,6 +9,12 @@ Texture::Texture(const std::string& path)
   this->local_buffer = stbi_load(path.c_str(), &this->width, &this->height, &this->bits_per_pixel, 4);
 
   glGenTextures(1, &this->gl_handle);
+  if (this->gl_handle == 0) {
+    std::cout << "Error: failed to create a texture!\n";
+    exit(1);
+  }
+
+  // bind texture
   glBindTexture(GL_TEXTURE_2D, this->gl_handle);
 
   // these 4 params are mendatory

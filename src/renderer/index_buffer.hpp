@@ -1,6 +1,7 @@
 #pragma once
 
 #include <span>
+#include <iostream>
 
 #include "glad/glad.h"
 

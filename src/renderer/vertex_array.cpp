@@ -2,6 +2,11 @@
 
 VertexArray::VertexArray() {
   glGenVertexArrays(1, &this->gl_handle);
+  if (this->gl_handle == 0) {
+    std::cout << "Error: failed to create a vertex array!\n";
+    exit(1);
+  }
+
   glBindVertexArray(this->gl_handle);
 }
 VertexArray::~VertexArray() {

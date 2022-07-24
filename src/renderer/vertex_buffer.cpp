@@ -2,6 +2,11 @@
 
 VertexBuffer::VertexBuffer(const void *data, const uint32_t size) {
   glGenBuffers(1, &this->gl_handle);
+  if (this->gl_handle == 0) {
+    std::cout << "Error: failed to create a buffer!\n";
+    exit(1);
+  }
+
   glBindBuffer(GL_ARRAY_BUFFER, this->gl_handle);
   glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
   this->Unbind();

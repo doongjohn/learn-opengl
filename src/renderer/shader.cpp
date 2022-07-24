@@ -11,6 +11,10 @@ ShaderProgram::ShaderProgram(const std::string& file_path)
 {
   auto [vertex_src, fragment_src] = this->ParseShader(file_path);
   this->gl_handle = ShaderProgram::CreateShader(vertex_src, fragment_src);
+  if (this->gl_handle == 0) {
+    std::cout << "Error: failed to create a shader program!\n";
+    exit(1);
+  }
 
   auto props = array {
     GL_NAME_LENGTH,
@@ -19,7 +23,7 @@ ShaderProgram::ShaderProgram(const std::string& file_path)
   };
   array<GLint, 3> prop_data {0};
 
-  // TODO: also do uniform block
+  // TODO: also get all uniform blocks
   // https://stackoverflow.com/questions/71506455/get-names-of-uniforms-in-uniform-block
   // https://stackoverflow.com/questions/440144/in-opengl-is-there-a-way-to-get-a-list-of-all-uniforms-attribs-used-by-a-shade
   int uniform_count = 0;
@@ -96,24 +100,28 @@ tuple<string, string> ShaderProgram::ParseShader(const string& file_path) {
 }
 
 uint32_t ShaderProgram::CompileShader(const uint32_t shader_type, const string& source) {
-  uint32_t id = glCreateShader(shader_type);
+  uint32_t shader_handle = glCreateShader(shader_type);
+  if (shader_handle == 0) {
+    std::cout << "Error: failed to create a shader!\n";
+    exit(1);
+  }
 
   const char *src_str = source.c_str();
-  glShaderSource(id, 1, &src_str, nullptr);
-  glCompileShader(id);
+  glShaderSource(shader_handle, 1, &src_str, nullptr);
+  glCompileShader(shader_handle);
 
-  // get compile result
+  // get compile error
   int result;
-  glGetShaderiv(id, GL_COMPILE_STATUS, &result);
+  glGetShaderiv(shader_handle, GL_COMPILE_STATUS, &result);
   if (result == GL_FALSE) {
     // get message length
     int length = 0;
-    glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
+    glGetShaderiv(shader_handle, GL_INFO_LOG_LENGTH, &length);
 
     // get message
     string message;
     message.resize(length);
-    glGetShaderInfoLog(id, length, &length, &message[0]);
+    glGetShaderInfoLog(shader_handle, length, &length, &message[0]);
 
     // print error message
     std::cout << "Failed to compile ";
@@ -125,13 +133,14 @@ uint32_t ShaderProgram::CompileShader(const uint32_t shader_type, const string& 
         std::cout << "vertex shader!\n";
         break;
     }
-    std::cout << message << std::endl;
+    std::cout << message << '\n';
 
-    glDeleteShader(id);
+    // delete shader
+    glDeleteShader(shader_handle);
     return 0;
   }
 
-  return id;
+  return shader_handle;
 }
 
 uint32_t ShaderProgram::CreateShader(const string& vertex_shader, const string& fragment_shader) {
