@@ -2,6 +2,7 @@
 
 #include <array>
 
+#include "renderer/renderer.hpp"
 #include "scene.hpp"
 #include "scenes/clear_color.hpp"
 #include "scenes/quad.hpp"
@@ -24,7 +25,7 @@ static auto scene_list = array {
   "3d cube",
 };
 
-Scene* create_scene(Renderer& renderer, ImGuiIO& io, int scene_index) {
+Scene* create_scene(Renderer &renderer, ImGuiIO &io, int scene_index) {
   switch (scene_index) {
     case 0:
       return new Scenes::ClearColor(renderer, io);
@@ -43,7 +44,7 @@ Scene* create_scene(Renderer& renderer, ImGuiIO& io, int scene_index) {
   }
 }
 
-Scene* draw_menu(Scene*& scene, Renderer& renderer, ImGuiIO& io) {
+Scene* draw_menu(Scene *&scene, Renderer &renderer, ImGuiIO &io) {
   ImGui::Begin("Scenes");
   int i = 0;
   for (auto& scene : scene_list) {
@@ -54,6 +55,14 @@ Scene* draw_menu(Scene*& scene, Renderer& renderer, ImGuiIO& io) {
   }
   ImGui::End();
   return nullptr;
+}
+
+void change_scene(Renderer &renderer, Scene *&current_scene, Scene *&next_scene) {
+  if (next_scene) {
+    delete current_scene;
+    current_scene = next_scene;
+    renderer.SetClearColor(SceneManager::default_clear_color);
+  }
 }
 
 }

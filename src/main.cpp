@@ -85,22 +85,25 @@ int main(int argc, char **argv) {
 
   // render loop
   while (!glfwWindowShouldClose(window)) {
+    // clear screen
     renderer.Clear();
+
+    // scene render
     scene->OnRender();
 
+    // prepare imgui
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
+    // scene ui
     scene->OnImGuiRender();
 
-    auto nextScene = SceneManager::draw_menu(scene, renderer, io);
-    if (nextScene) {
-      delete scene;
-      scene = nextScene;
-      renderer.SetClearColor(SceneManager::default_clear_color);
-    }
+    // change scene
+    auto next_scene = SceneManager::draw_menu(scene, renderer, io);
+    SceneManager::change_scene(renderer, scene, next_scene);
 
+    // draw imgui
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
