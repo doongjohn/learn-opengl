@@ -1,6 +1,9 @@
 #pragma once
 
+#include <functional>
+
 #include "glad/glad.h"
+#include "GLFW/glfw3.h"
 
 #include "vertex_array.hpp"
 #include "vertex_buffer.hpp"
@@ -20,6 +23,5 @@ public:
 
   void Clear() const;
   void SetClearColor(glm::vec3 color) const;
-  void DrawTriangles(const ShaderProgram& shader, const VertexArray& vao, const IndexBuffer& ebo) const;
-  void DrawTriangleStrip(const ShaderProgram& shader, const VertexArray& vao, const int& count) const;
+  void DrawTriangles(const ShaderProgram &shader, const VertexArray &vao, const IndexBuffer &ebo) const;
 };
