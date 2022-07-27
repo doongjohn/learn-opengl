@@ -2,7 +2,9 @@
 
 #include "scene.hpp"
 
-class SceneVertexColorTriangle : public Scene {
+namespace Scenes {
+
+class VertexColorTriangle : public Scene {
 private:
   VertexBuffer vbo;
   IndexBuffer ebo;
@@ -11,15 +13,15 @@ private:
   glm::vec3 quad_pos;
 
 public:
-  SceneVertexColorTriangle(Renderer& renderer, ImGuiIO& io);
-  ~SceneVertexColorTriangle();
+  VertexColorTriangle(Renderer& renderer, ImGuiIO& io);
+  ~VertexColorTriangle();
 
   void OnUpdate(const float deltaTime) override;
   void OnRender() override;
   void OnImGuiRender() override;
 };
 
-SceneVertexColorTriangle::SceneVertexColorTriangle(Renderer& renderer, ImGuiIO& io)
+VertexColorTriangle::VertexColorTriangle(Renderer& renderer, ImGuiIO& io)
   : Scene(renderer, io)
 {
   struct Vertex {
@@ -48,8 +50,6 @@ SceneVertexColorTriangle::SceneVertexColorTriangle(Renderer& renderer, ImGuiIO& 
     { .type = GL_FLOAT, .count = 3 },
   });
   vao.Unbind();
-  vbo.Unbind();
-  ebo.Unbind();
 
   // create shader
   new(&shader) ShaderProgram("./res/shaders/vertex_color.glsl");
@@ -57,11 +57,11 @@ SceneVertexColorTriangle::SceneVertexColorTriangle(Renderer& renderer, ImGuiIO& 
   // initialize model position
   quad_pos = glm::vec3(0.0f, 0.0f, 0.0f);
 }
-SceneVertexColorTriangle::~SceneVertexColorTriangle() { }
+VertexColorTriangle::~VertexColorTriangle() { }
 
-void SceneVertexColorTriangle::OnUpdate(const float deltaTime) { }
+void VertexColorTriangle::OnUpdate(const float deltaTime) { }
 
-void SceneVertexColorTriangle::OnRender() {
+void VertexColorTriangle::OnRender() {
   // set mvp matrix
   glm::mat4 proj = glm::ortho(-renderer.width / 2.0f, renderer.width / 2.0f, -renderer.height / 2.0f, renderer.height / 2.0f);
   glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
@@ -74,9 +74,11 @@ void SceneVertexColorTriangle::OnRender() {
   renderer.DrawTriangles(shader, vao, ebo);
 }
 
-void SceneVertexColorTriangle::OnImGuiRender() {
+void VertexColorTriangle::OnImGuiRender() {
   ImGui::Begin("Hello, world!");
   ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
   ImGui::SliderFloat3("model position", &quad_pos[0], -200.0f, 200.0f);
   ImGui::End();
+}
+
 }

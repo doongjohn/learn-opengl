@@ -2,7 +2,9 @@
 
 #include "scene.hpp"
 
-class SceneVertexColorQuad : public Scene {
+namespace Scenes {
+
+class VertexColorQuad : public Scene {
 private:
   VertexBuffer vbo;
   IndexBuffer ebo;
@@ -11,15 +13,15 @@ private:
   glm::vec3 quad_pos;
 
 public:
-  SceneVertexColorQuad(Renderer& renderer, ImGuiIO& io);
-  ~SceneVertexColorQuad();
+  VertexColorQuad(Renderer &renderer, ImGuiIO &io);
+  ~VertexColorQuad();
 
   void OnUpdate(const float deltaTime) override;
   void OnRender() override;
   void OnImGuiRender() override;
 };
 
-SceneVertexColorQuad::SceneVertexColorQuad(Renderer& renderer, ImGuiIO& io)
+VertexColorQuad::VertexColorQuad(Renderer &renderer, ImGuiIO &io)
   : Scene(renderer, io)
 {
   struct Vertex {
@@ -49,8 +51,6 @@ SceneVertexColorQuad::SceneVertexColorQuad(Renderer& renderer, ImGuiIO& io)
     { .type = GL_FLOAT, .count = 2 },
   });
   vao.Unbind();
-  vbo.Unbind();
-  ebo.Unbind();
 
   // create shader
   new(&shader) ShaderProgram("./res/shaders/vertex_color_quad.glsl");
@@ -64,11 +64,11 @@ SceneVertexColorQuad::SceneVertexColorQuad(Renderer& renderer, ImGuiIO& io)
   // initialize model position
   quad_pos = glm::vec3(0.0f, 0.0f, 0.0f);
 }
-SceneVertexColorQuad::~SceneVertexColorQuad() { }
+VertexColorQuad::~VertexColorQuad() { }
 
-void SceneVertexColorQuad::OnUpdate(const float deltaTime) { }
+void VertexColorQuad::OnUpdate(const float deltaTime) { }
 
-void SceneVertexColorQuad::OnRender() {
+void VertexColorQuad::OnRender() {
   // set mvp matrix
   glm::mat4 proj = glm::ortho(-renderer.width / 2.0f, renderer.width / 2.0f, -renderer.height / 2.0f, renderer.height / 2.0f);
   glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
@@ -81,9 +81,11 @@ void SceneVertexColorQuad::OnRender() {
   renderer.DrawTriangles(shader, vao, ebo);
 }
 
-void SceneVertexColorQuad::OnImGuiRender() {
+void VertexColorQuad::OnImGuiRender() {
   ImGui::Begin("Hello, world!");
   ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
   ImGui::SliderFloat3("model position", &quad_pos[0], -200.0f, 200.0f);
   ImGui::End();
+}
+
 }

@@ -2,7 +2,9 @@
 
 #include "scene.hpp"
 
-class SceneQuad : public Scene {
+namespace Scenes {
+
+class Quad : public Scene {
 private:
   VertexBuffer vbo;
   VertexArray vao;
@@ -12,15 +14,15 @@ private:
   glm::vec4 quad_color;
 
 public:
-  SceneQuad(Renderer& renderer, ImGuiIO& io);
-  ~SceneQuad();
+  Quad(Renderer& renderer, ImGuiIO& io);
+  ~Quad();
 
   void OnUpdate(const float deltaTime) override;
   void OnRender() override;
   void OnImGuiRender() override;
 };
 
-SceneQuad::SceneQuad(Renderer& renderer, ImGuiIO& io)
+Quad::Quad(Renderer& renderer, ImGuiIO& io)
   : Scene(renderer, io)
 {
   auto positions = std::array {
@@ -44,21 +46,19 @@ SceneQuad::SceneQuad(Renderer& renderer, ImGuiIO& io)
     { .type = GL_FLOAT, .count = 2 }, // x, y pos
   });
   vao.Unbind();
-  vbo.Unbind();
-  ebo.Unbind();
 
   // create shader
-  new(&shader) ShaderProgram("./res/shaders/basic.glsl");
+  new(&shader) ShaderProgram("./res/shaders/basic2d.glsl");
 
   // initialize model position
   quad_pos = glm::vec3(0.0f, 0.0f, 0.0f);
   quad_color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 }
-SceneQuad::~SceneQuad() { }
+Quad::~Quad() { }
 
-void SceneQuad::OnUpdate(const float deltaTime) { }
+void Quad::OnUpdate(const float deltaTime) { }
 
-void SceneQuad::OnRender() {
+void Quad::OnRender() {
   static float rotation = 0.0f;
   rotation += 0.2f;
 
@@ -77,10 +77,12 @@ void SceneQuad::OnRender() {
   renderer.DrawTriangles(shader, vao, ebo);
 }
 
-void SceneQuad::OnImGuiRender() {
+void Quad::OnImGuiRender() {
   ImGui::Begin("Hello, world!");
   ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
   ImGui::SliderFloat3("model position", &quad_pos[0], -200.0f, 200.0f);
   ImGui::ColorEdit4("Color", &quad_color[0]);
   ImGui::End();
+}
+
 }

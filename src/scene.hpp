@@ -13,8 +13,8 @@
 
 class Scene {
 protected:
-  const Renderer& renderer;
-  const ImGuiIO& io;
+  const Renderer &renderer;
+  const ImGuiIO &io;
 
 public:
   Scene(Renderer& renderer, ImGuiIO& io)

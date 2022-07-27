@@ -4,44 +4,32 @@
 
 namespace Scenes {
 
-class QuadWithTexture : public Scene {
+class Cube : public Scene {
 private:
   VertexBuffer vbo;
   VertexArray vao;
   IndexBuffer ebo;
   ShaderProgram shader;
-  Texture texture;
   glm::vec3 quad_pos;
   glm::vec4 quad_color;
 
 public:
-  QuadWithTexture(Renderer& renderer, ImGuiIO& io);
-  ~QuadWithTexture();
+  Cube(Renderer& renderer, ImGuiIO& io);
+  ~Cube();
 
   void OnUpdate(const float deltaTime) override;
   void OnRender() override;
   void OnImGuiRender() override;
 };
 
-QuadWithTexture::QuadWithTexture(Renderer& renderer, ImGuiIO& io)
+Cube::Cube(Renderer& renderer, ImGuiIO& io)
   : Scene(renderer, io)
 {
-  struct Vertex {
-    float pos[2];
-    float uv[2];
-  };
-
-  // image source: https://www.freeillustrated.com/illustrations/2018/08/10
-  float image_scale = 0.3f;
-  float image_w = 1639 * image_scale;
-  float image_h = 2048 * image_scale;
-
-  // vertex buffer
   auto positions = std::array {
-    Vertex { .pos = { -image_w / 2, -image_h / 2 }, .uv = { 0.0f, 0.0f } },
-    Vertex { .pos = {  image_w / 2, -image_h / 2 }, .uv = { 1.0f, 0.0f } },
-    Vertex { .pos = {  image_w / 2,  image_h / 2 }, .uv = { 1.0f, 1.0f } },
-    Vertex { .pos = { -image_w / 2,  image_h / 2 }, .uv = { 0.0f, 1.0f } },
+    -1.0f, -1.0f,
+     1.0f, -1.0f,
+     1.0f,  1.0f,
+    -1.0f,  1.0f,
   };
 
   // index buffer
@@ -56,35 +44,26 @@ QuadWithTexture::QuadWithTexture(Renderer& renderer, ImGuiIO& io)
 
   vao.AttachVertexBuffer(vbo, {
     { .type = GL_FLOAT, .count = 2 }, // x, y pos
-    { .type = GL_FLOAT, .count = 2 }, // tex coord
   });
   vao.Unbind();
 
   // create shader
-  new(&shader) ShaderProgram("./res/shaders/textured_quad.glsl");
-  shader.Bind();
-
-  // create and assgin texture
-  new(&texture) Texture("./res/textures/spoonful.jpg");
-  shader.SetUniform1i("u_Texture", 0); // slot 0
-
-  // removes preformance warning
-  shader.Unbind();
+  new(&shader) ShaderProgram("./res/shaders/basic3d.glsl");
 
   // initialize model position
-  quad_pos = glm::vec3(0.0f, 0.0f, 0.0f);
+  quad_pos = glm::vec3(0.0f, 0.0f, -50.0f);
   quad_color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 }
-QuadWithTexture::~QuadWithTexture() { }
+Cube::~Cube() { }
 
-void QuadWithTexture::OnUpdate(const float deltaTime) { }
+void Cube::OnUpdate(const float deltaTime) { }
 
-void QuadWithTexture::OnRender() {
+void Cube::OnRender() {
   static float rotation = 0.0f;
   rotation += 0.2f;
 
   // set mvp matrix
-  glm::mat4 proj = glm::ortho(-renderer.width / 2.0f, renderer.width / 2.0f, -renderer.height / 2.0f, renderer.height / 2.0f);
+  glm::mat4 proj = glm::perspective(glm::radians(45.0f), (float)renderer.width / renderer.height, 0.1f, 100.0f);
   glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
   glm::mat4 model_t = glm::translate(glm::mat4(1.0f), quad_pos);
   glm::mat4 model_r = glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
@@ -94,16 +73,15 @@ void QuadWithTexture::OnRender() {
   ebo.Bind();
   shader.Bind();
   shader.SetUniformMat4f("u_Mvp", mvp);
-  shader.SetUniform4f("u_Tint", quad_color);
-  texture.Bind();
+  shader.SetUniform4f("u_Color", quad_color);
   renderer.DrawTriangles(shader, vao, ebo);
 }
 
-void QuadWithTexture::OnImGuiRender() {
+void Cube::OnImGuiRender() {
   ImGui::Begin("Hello, world!");
   ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
   ImGui::SliderFloat3("model position", &quad_pos[0], -200.0f, 200.0f);
-  ImGui::ColorEdit4("Color tint", &quad_color[0]);
+  ImGui::ColorEdit4("Color", &quad_color[0]);
   ImGui::End();
 }
 

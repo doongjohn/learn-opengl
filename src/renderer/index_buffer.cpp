@@ -11,7 +11,7 @@ IndexBuffer::IndexBuffer(const std::span<uint32_t> data)
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->gl_handle);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), &data.front(), GL_STATIC_DRAW);
-  this->Unbind();
+  IndexBuffer::Unbind();
 }
 IndexBuffer::~IndexBuffer() {
   glDeleteBuffers(1, &this->gl_handle);

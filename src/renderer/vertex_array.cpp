@@ -19,6 +19,8 @@ void VertexArray::Bind() const {
 }
 void VertexArray::Unbind() {
   glBindVertexArray(0);
+  VertexBuffer::Unbind();
+  IndexBuffer::Unbind();
 }
 
 static int32_t sizeof_gl_type(GLenum type) {
@@ -36,8 +38,6 @@ static int32_t sizeof_gl_type(GLenum type) {
 void VertexArray::AttachIndexBuffer(IndexBuffer& ebo) {
   ebo.Bind();
 }
-
-// stride = size of single vertex
 void VertexArray::AttachVertexBuffer(VertexBuffer& vbo, std::initializer_list<VertexArrayElement> attribs) {
   vbo.Bind();
   VertexArrayLayout layout;

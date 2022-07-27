@@ -2,32 +2,36 @@
 
 #include "scene.hpp"
 
-class SceneClearColor : public Scene {
+namespace Scenes {
+
+class ClearColor : public Scene {
 private:
   glm::vec3 clear_color;
 
 public:
-  SceneClearColor(Renderer& renderer, ImGuiIO& io);
-  ~SceneClearColor();
+  ClearColor(Renderer& renderer, ImGuiIO& io);
+  ~ClearColor();
 
   void OnUpdate(const float deltaTime) override;
   void OnRender() override;
   void OnImGuiRender() override;
 };
 
-SceneClearColor::SceneClearColor(Renderer& renderer, ImGuiIO& io)
+ClearColor::ClearColor(Renderer& renderer, ImGuiIO& io)
   : Scene(renderer, io), clear_color(glm::vec3(1.0f, 1.0f, 1.0f)) { }
-SceneClearColor::~SceneClearColor() { }
+ClearColor::~ClearColor() { }
 
-void SceneClearColor::OnUpdate(const float deltaTime) { }
+void ClearColor::OnUpdate(const float deltaTime) { }
 
-void SceneClearColor::OnRender() {
+void ClearColor::OnRender() {
   glClearColor(clear_color.x, clear_color.y, clear_color.z, 1.0f);
 }
 
-void SceneClearColor::OnImGuiRender() {
+void ClearColor::OnImGuiRender() {
   ImGui::Begin("Hello, world!");
   ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, ImGui::GetIO().Framerate);
   ImGui::ColorEdit3("clear color", (float*)&clear_color);
   ImGui::End();
+}
+
 }
