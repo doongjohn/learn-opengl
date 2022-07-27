@@ -9,7 +9,7 @@
 #include "scenes/vertex_color_triangle.hpp"
 #include "scenes/vertex_color_quad.hpp"
 #include "scenes/texture_quad.hpp"
-#include "scenes/cube.hpp"
+#include "scenes/perspective.hpp"
 
 namespace SceneManager {
 
@@ -22,7 +22,7 @@ static auto scene_list = array {
   "vertex color triangle",
   "vertex color quad",
   "texture quad",
-  "3d cube",
+  "3d perspective",
 };
 
 Scene* create_scene(Renderer &renderer, ImGuiIO &io, int scene_index) {
@@ -38,7 +38,7 @@ Scene* create_scene(Renderer &renderer, ImGuiIO &io, int scene_index) {
     case 4:
       return new Scenes::QuadWithTexture(renderer, io);
     case 5:
-      return new Scenes::Cube(renderer, io);
+      return new Scenes::Perspective(renderer, io);
     default:
       return nullptr;
   }
