@@ -71,6 +71,7 @@ void ShaderProgram::SetUniformMat4f(const std::string& name, const glm::mat4& ma
   glUniformMatrix4fv(this->GetUniformLocation(name), 1, GL_FALSE, &mat[0][0]);
 }
 
+// split vertex and fragment shader
 tuple<string, string> ShaderProgram::ParseShader(const string& file_path) {
   enum class ShaderType { None = -1, Vertex = 0, Fragment = 1 };
 

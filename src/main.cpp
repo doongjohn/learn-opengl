@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
   if (window == nullptr) {
     std::cout << "Failed to create GLFW window" << std::endl;
     glfwTerminate();
-    return -1;
+    return 1;
   }
 
   // create opengl context
@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
   // load opengl using glad
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
     std::cout << "Failed to initialize GLAD" << std::endl;
-    return -1;
+    return 1;
   }
 
   // debug message handler
