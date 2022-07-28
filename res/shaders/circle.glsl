@@ -21,10 +21,10 @@ out vec4 out_Color;
 
 in vec2 v_Uv;
 vec2 uv = v_Uv;
-vec3 color = vec3(1, 1, 1);
+vec3 color = vec3(1.0, 0.85, 0.1);
 
 void main() {
   uv -= 0.5; // center = 0, 0
-  color *= smoothstep(0.02, 0.0, length(uv) - 0.3);
+  color *= smoothstep(0.05, 0.0, length(uv) - 0.3);
   out_Color = vec4(color, 1.0);
 }

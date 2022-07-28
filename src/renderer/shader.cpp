@@ -34,6 +34,8 @@ ShaderProgram::ShaderProgram(const std::string& file_path)
     int location = glGetUniformLocation(this->gl_handle, name.c_str());
     this->uniform_cache[name] = location;
   }
+
+  ShaderProgram::Unbind();
 }
 ShaderProgram::~ShaderProgram() {
   glDeleteProgram(this->gl_handle);

@@ -80,6 +80,11 @@ void CircleShader::OnImGuiRender() {
   ImGui::Begin("Hello, world!");
   ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
   ImGui::SliderFloat3("model position", &quad_pos[0], -200.0f, 200.0f);
+
+  if (ImGui::Button("reload shader")) {
+    shader.~ShaderProgram();
+    new(&shader) ShaderProgram("./res/shaders/circle.glsl");
+  }
   ImGui::End();
 }
 

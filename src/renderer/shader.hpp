@@ -23,6 +23,9 @@ public:
   ShaderProgram(const std::string& file_path);
   ~ShaderProgram();
 
+  inline
+  int32_t GetHandle() { return this->gl_handle; }
+
   void Bind() const;
   static void Unbind();
 
