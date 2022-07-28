@@ -19,10 +19,10 @@ void main() {
 
 in vec2 v_Uv;
 
-uniform vec3 u_Color_tl; // top left
-uniform vec3 u_Color_bl; // bottom left
-uniform vec3 u_Color_tr; // top right
-uniform vec3 u_Color_br; // bottom right
+uniform vec3 u_Color_01; // top left
+uniform vec3 u_Color_00; // bottom left
+uniform vec3 u_Color_11; // top right
+uniform vec3 u_Color_10; // bottom right
 
 out vec4 out_Color;
 
@@ -31,8 +31,8 @@ out vec4 out_Color;
 // https://stackoverflow.com/questions/60212615/how-to-properly-blend-colors-across-two-triangles-and-remove-diagonal-smear
 void main() {
   // bilinear interpolation
-  vec3 l = mix(u_Color_bl, u_Color_tl, v_Uv.t);
-  vec3 r = mix(u_Color_br, u_Color_tr, v_Uv.t);
+  vec3 l = mix(u_Color_00, u_Color_01, v_Uv.t);
+  vec3 r = mix(u_Color_10, u_Color_11, v_Uv.t);
   vec3 c = mix(l, r, v_Uv.s);
   out_Color = vec4(c, 1f);
 }

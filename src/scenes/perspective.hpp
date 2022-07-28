@@ -63,6 +63,7 @@ void Perspective::OnRender() {
   rotation += 0.2f;
 
   // set mvp matrix
+  // Perspective Projection - Part 1 https://youtu.be/LhQ85bPCAJ8
   glm::mat4 proj = glm::perspective(glm::radians(45.0f), (float)renderer.width / renderer.height, 0.1f, 100.0f);
   glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
   glm::mat4 model_t = glm::translate(glm::mat4(1.0f), quad_pos);

@@ -36,8 +36,6 @@ VertexColorQuad::VertexColorQuad(Renderer &renderer, ImGuiIO &io)
     Vertex { .pos = { -100.0f,  100.0f }, .uv = { 0, 1 } },
   };
 
-  // index buffer
-  // (default winding order is counterclockwise)
   uint32_t indices[6] = {
     0, 1, 2,
     0, 2, 3,
@@ -54,11 +52,12 @@ VertexColorQuad::VertexColorQuad(Renderer &renderer, ImGuiIO &io)
 
   // create shader
   new(&shader) ShaderProgram("./res/shaders/vertex_color_quad.glsl");
+  // set colors
   shader.Bind();
-  shader.SetUniform3f("u_Color_bl", glm::vec3(254, 226, 179) / 255.0f);
-  shader.SetUniform3f("u_Color_br", glm::vec3(255, 162, 153) / 255.0f);
-  shader.SetUniform3f("u_Color_tr", glm::vec3(173, 105, 137) / 255.0f);
-  shader.SetUniform3f("u_Color_tl", glm::vec3(86, 35, 73) / 255.0f);
+  shader.SetUniform3f("u_Color_00", glm::vec3(254, 226, 179) / 255.0f);
+  shader.SetUniform3f("u_Color_10", glm::vec3(255, 162, 153) / 255.0f);
+  shader.SetUniform3f("u_Color_11", glm::vec3(173, 105, 137) / 255.0f);
+  shader.SetUniform3f("u_Color_01", glm::vec3(86, 35, 73) / 255.0f);
   shader.Unbind();
 
   // initialize model position

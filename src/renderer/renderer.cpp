@@ -6,7 +6,7 @@ Renderer::Renderer(int width, int height)
 Renderer::~Renderer() { }
 
 void Renderer::Clear() const {
-  glClear(GL_COLOR_BUFFER_BIT);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 void Renderer::SetClearColor(glm::vec3 color) const {
   glClearColor(color.x, color.y, color.z, 1.0f);

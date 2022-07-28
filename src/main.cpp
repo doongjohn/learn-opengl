@@ -61,7 +61,10 @@ int main(int argc, char **argv) {
   glViewport(0, 0, renderer.width, renderer.height);
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-  // set blend mode
+  // enable depth testing
+  glEnable(GL_DEPTH_TEST);
+
+  // enable blend mode
   // https://www.youtube.com/watch?v=o1_yJ60UIxs&list=PLlrATfBNZ98foTJPJ_Ev03o2oq3-GGOS2&index=18
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
