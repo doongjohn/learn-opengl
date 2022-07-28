@@ -11,6 +11,7 @@
 #include "scenes/texture_quad.hpp"
 #include "scenes/perspective.hpp"
 #include "scenes/cube.hpp"
+#include "scenes/circle_shader.hpp"
 
 namespace SceneManager {
 
@@ -25,6 +26,7 @@ static constexpr auto scene_list = array {
   "texture quad",
   "3d perspective",
   "3d cube",
+  "circle shader",
 };
 
 Scene* create_scene(Renderer &renderer, ImGuiIO &io, int scene_index) {
@@ -36,6 +38,7 @@ Scene* create_scene(Renderer &renderer, ImGuiIO &io, int scene_index) {
     case 4: return new Scenes::QuadWithTexture(renderer, io);
     case 5: return new Scenes::Perspective(renderer, io);
     case 6: return new Scenes::Cube(renderer, io);
+    case 7: return new Scenes::CircleShader(renderer, io);
     default: return nullptr;
   }
 }

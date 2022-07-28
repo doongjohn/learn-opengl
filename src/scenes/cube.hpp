@@ -26,7 +26,7 @@ Cube::Cube(Renderer& renderer, ImGuiIO& io)
 {
   struct Vertex {
     float pos[3];
-    uint32_t uv[2];
+    float uv[2];
   };
 
   auto positions = std::array {
@@ -54,7 +54,7 @@ Cube::Cube(Renderer& renderer, ImGuiIO& io)
 
   vao.AttachVertexBuffer(vbo, {
     { .type = GL_FLOAT, .count = 3 },
-    { .type = GL_UNSIGNED_INT, .count = 2 },
+    { .type = GL_FLOAT, .count = 2 },
   });
   vao.Unbind();
 
@@ -84,7 +84,7 @@ void Cube::OnRender() {
   glm::mat4 proj = glm::perspective(glm::radians(45.0f), (float)renderer.width / renderer.height, 0.1f, 100.0f);
   glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
   glm::mat4 model_t = glm::translate(glm::mat4(1.0f), cube_pos);
-  glm::mat4 model_rx = glm::rotate(glm::mat4(1.0f), glm::radians(-40.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+  glm::mat4 model_rx = glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(1.0f, 0.0f, 0.0f));
   glm::mat4 model_ry = glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
   glm::mat4 mvp = proj * view * (model_t * model_rx * model_ry);
 
