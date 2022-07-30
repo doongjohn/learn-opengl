@@ -4,7 +4,7 @@
 
 namespace Scenes {
 
-class CircleShader : public Scene {
+class HeartShader : public Scene {
 private:
   VertexBuffer vbo;
   VertexArray vao;
@@ -14,18 +14,18 @@ private:
   glm::vec3 quad_pos;
 
 public:
-  CircleShader(Renderer& renderer, ImGuiIO& io);
-  ~CircleShader();
+  HeartShader(Renderer& renderer, ImGuiIO& io);
+  ~HeartShader();
 
   void OnUpdate(const float deltaTime) override;
   void OnRender() override;
   void OnImGuiRender() override;
 };
 
-CircleShader::CircleShader(Renderer& renderer, ImGuiIO& io)
+HeartShader::HeartShader(Renderer& renderer, ImGuiIO& io)
   : Scene(renderer, io)
 {
-  this->shader_file = "./res/shaders/circle.glsl";
+  this->shader_file = "./res/shaders/heart.glsl";
 
   struct Vertex {
     float pos[2];
@@ -61,11 +61,11 @@ CircleShader::CircleShader(Renderer& renderer, ImGuiIO& io)
   // initialize model position
   quad_pos = glm::vec3(0.0f, 0.0f, 0.0f);
 }
-CircleShader::~CircleShader() { }
+HeartShader::~HeartShader() { }
 
-void CircleShader::OnUpdate(const float deltaTime) { }
+void HeartShader::OnUpdate(const float deltaTime) { }
 
-void CircleShader::OnRender() {
+void HeartShader::OnRender() {
   // set mvp matrix
   glm::mat4 proj = glm::ortho(-renderer.width / 2.0f, renderer.width / 2.0f, -renderer.height / 2.0f, renderer.height / 2.0f);
   glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
@@ -79,7 +79,7 @@ void CircleShader::OnRender() {
   renderer.DrawTriangles(shader, vao, ebo);
 }
 
-void CircleShader::OnImGuiRender() {
+void HeartShader::OnImGuiRender() {
   ImGui::Begin("Hello, world!");
   ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
   ImGui::SliderFloat3("model position", &quad_pos[0], -200.0f, 200.0f);

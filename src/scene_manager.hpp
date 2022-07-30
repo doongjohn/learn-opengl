@@ -12,6 +12,7 @@
 #include "scenes/perspective.hpp"
 #include "scenes/cube.hpp"
 #include "scenes/circle_shader.hpp"
+#include "scenes/heart_shader.hpp"
 
 namespace SceneManager {
 
@@ -27,6 +28,7 @@ static constexpr auto scene_list = array {
   "3d perspective",
   "3d cube",
   "circle shader",
+  "heart shader",
 };
 
 Scene* create_scene(Renderer &renderer, ImGuiIO &io, int scene_index) {
@@ -39,6 +41,7 @@ Scene* create_scene(Renderer &renderer, ImGuiIO &io, int scene_index) {
     case 5: return new Scenes::Perspective(renderer, io);
     case 6: return new Scenes::Cube(renderer, io);
     case 7: return new Scenes::CircleShader(renderer, io);
+    case 8: return new Scenes::HeartShader(renderer, io);
     default: return nullptr;
   }
 }

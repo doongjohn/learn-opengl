@@ -77,7 +77,7 @@ void Cube::OnUpdate(const float deltaTime) { }
 
 void Cube::OnRender() {
   static float rotation = 0.0f;
-  // rotation += 0.2f;
+  rotation += 0.2f;
 
   // set mvp matrix
   // Perspective Projection - Part 1 https://youtu.be/LhQ85bPCAJ8
