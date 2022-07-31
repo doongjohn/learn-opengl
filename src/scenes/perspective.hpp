@@ -65,11 +65,11 @@ void Perspective::OnRender() {
   // set mvp matrix
   // Perspective Projection - Part 1 https://youtu.be/LhQ85bPCAJ8
   glm::mat4 proj = glm::perspective(glm::radians(45.0f), (float)renderer.width / renderer.height, 0.1f, 100.0f);
-  glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
-  glm::mat4 model_t = glm::translate(glm::mat4(1.0f), quad_pos);
-  glm::mat4 model_rx = glm::rotate(glm::mat4(1.0f), glm::radians(-40.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-  glm::mat4 model_ry = glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
-  glm::mat4 mvp = proj * view * (model_t * model_rx * model_ry);
+  glm::mat4 model =
+    glm::translate(glm::mat4(1.0f), quad_pos) *
+    glm::rotate(glm::mat4(1.0f), glm::radians(-40.0f), glm::vec3(1.0f, 0.0f, 0.0f)) *
+    glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
+  glm::mat4 mvp = proj * model;
 
   vao.Bind();
   ebo.Bind();

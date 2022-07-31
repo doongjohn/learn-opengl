@@ -11,6 +11,7 @@
 #include "scenes/texture_quad.hpp"
 #include "scenes/perspective.hpp"
 #include "scenes/cube.hpp"
+#include "scenes/camera.hpp"
 #include "scenes/circle_shader.hpp"
 #include "scenes/heart_shader.hpp"
 
@@ -27,6 +28,7 @@ static constexpr auto scene_list = array {
   "texture quad",
   "3d perspective",
   "3d cube",
+  "3d camera",
   "circle shader",
   "heart shader",
 };
@@ -40,8 +42,9 @@ Scene* create_scene(Renderer &renderer, ImGuiIO &io, int scene_index) {
     case 4: return new Scenes::QuadWithTexture(renderer, io);
     case 5: return new Scenes::Perspective(renderer, io);
     case 6: return new Scenes::Cube(renderer, io);
-    case 7: return new Scenes::CircleShader(renderer, io);
-    case 8: return new Scenes::HeartShader(renderer, io);
+    case 7: return new Scenes::Camera(renderer, io);
+    case 8: return new Scenes::CircleShader(renderer, io);
+    case 9: return new Scenes::HeartShader(renderer, io);
     default: return nullptr;
   }
 }

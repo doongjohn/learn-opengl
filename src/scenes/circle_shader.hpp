@@ -68,9 +68,8 @@ void CircleShader::OnUpdate(const float deltaTime) { }
 void CircleShader::OnRender() {
   // set mvp matrix
   glm::mat4 proj = glm::ortho(-renderer.width / 2.0f, renderer.width / 2.0f, -renderer.height / 2.0f, renderer.height / 2.0f);
-  glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
-  glm::mat4 model_t = glm::translate(glm::mat4(1.0f), quad_pos);
-  glm::mat4 mvp = proj * view * model_t;
+  glm::mat4 model = glm::translate(glm::mat4(1.0f), quad_pos);
+  glm::mat4 mvp = proj * model;
 
   vao.Bind();
   ebo.Bind();

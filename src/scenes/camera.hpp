@@ -4,7 +4,7 @@
 
 namespace Scenes {
 
-class Cube : public Scene {
+class Camera : public Scene {
 private:
   VertexBuffer vbo;
   VertexArray vao;
@@ -13,15 +13,15 @@ private:
   glm::vec3 cube_pos;
 
 public:
-  Cube(Renderer& renderer, ImGuiIO& io);
-  ~Cube();
+  Camera(Renderer& renderer, ImGuiIO& io);
+  ~Camera();
 
   void OnUpdate(const float deltaTime) override;
   void OnRender() override;
   void OnImGuiRender() override;
 };
 
-Cube::Cube(Renderer& renderer, ImGuiIO& io)
+Camera::Camera(Renderer& renderer, ImGuiIO& io)
   : Scene(renderer, io)
 {
   struct Vertex {
@@ -71,21 +71,22 @@ Cube::Cube(Renderer& renderer, ImGuiIO& io)
   // initialize model position
   cube_pos = glm::vec3(0.0f, 0.0f, -10.0f);
 }
-Cube::~Cube() { }
+Camera::~Camera() { }
 
-void Cube::OnUpdate(const float deltaTime) { }
+void Camera::OnUpdate(const float deltaTime) { }
 
-void Cube::OnRender() {
+void Camera::OnRender() {
   static float rotation = 0.0f;
   rotation += 0.2f;
 
   // set mvp matrix
   // Perspective Projection - Part 1 https://youtu.be/LhQ85bPCAJ8
   glm::mat4 proj = glm::perspective(glm::radians(45.0f), (float)renderer.width / renderer.height, 0.1f, 100.0f);
+  glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
   glm::mat4 model =
     glm::translate(glm::mat4(1.0f), cube_pos) *
     glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(1.0f, 0.0f, 1.0f));
-  glm::mat4 mvp = proj * model;
+  glm::mat4 mvp = proj * glm::inverse(view) * model;
 
   vao.Bind();
   ebo.Bind();
@@ -94,7 +95,7 @@ void Cube::OnRender() {
   renderer.DrawTriangles(shader, vao, ebo);
 }
 
-void Cube::OnImGuiRender() {
+void Camera::OnImGuiRender() {
   ImGui::Begin("Hello, world!");
   ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
   ImGui::SliderFloat3("model position", &cube_pos[0], -10.0f, 10.0f);
