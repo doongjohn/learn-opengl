@@ -14,7 +14,7 @@ private:
   glm::vec3 quad_pos;
 
 public:
-  HeartShader(Renderer& renderer, ImGuiIO& io);
+  HeartShader(GLFWwindow *window, Renderer& renderer, ImGuiIO& io);
   ~HeartShader();
 
   void OnUpdate(const float deltaTime) override;
@@ -22,9 +22,8 @@ public:
   void OnImGuiRender() override;
 };
 
-HeartShader::HeartShader(Renderer& renderer, ImGuiIO& io)
-  : Scene(renderer, io)
-{
+HeartShader::HeartShader(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
+  : Scene(window, renderer, io) {
   this->shader_file = "./res/shaders/heart.glsl";
 
   struct Vertex {

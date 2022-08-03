@@ -24,7 +24,7 @@ vec2 uv = v_Uv;
 
 vec3 color1 = vec3(179, 255, 223) / 255.0;
 vec3 color2 = vec3(255, 145, 255) / 255.0;
-float r = 0.4;
+float r = 0.3;
 
 void main() {
   uv -= 0.5;

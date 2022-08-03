@@ -13,12 +13,13 @@
 
 class Scene {
 protected:
+  GLFWwindow *window;
   const Renderer &renderer;
   const ImGuiIO &io;
 
 public:
-  Scene(Renderer& renderer, ImGuiIO& io)
-    : renderer(renderer), io(io) { }
+  Scene(GLFWwindow *window, Renderer& renderer, ImGuiIO& io)
+    : window(window), renderer(renderer), io(io) { }
   virtual ~Scene() {}
 
   virtual void OnUpdate(const float deltaTime) {}

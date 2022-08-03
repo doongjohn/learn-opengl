@@ -14,7 +14,7 @@ private:
   glm::vec3 quad_pos;
 
 public:
-  CircleShader(Renderer& renderer, ImGuiIO& io);
+  CircleShader(GLFWwindow *window, Renderer &renderer, ImGuiIO &io);
   ~CircleShader();
 
   void OnUpdate(const float deltaTime) override;
@@ -22,9 +22,8 @@ public:
   void OnImGuiRender() override;
 };
 
-CircleShader::CircleShader(Renderer& renderer, ImGuiIO& io)
-  : Scene(renderer, io)
-{
+CircleShader::CircleShader(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
+  : Scene(window, renderer, io) {
   this->shader_file = "./res/shaders/circle.glsl";
 
   struct Vertex {

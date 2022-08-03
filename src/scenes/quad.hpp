@@ -14,7 +14,7 @@ private:
   glm::vec4 quad_color;
 
 public:
-  Quad(Renderer& renderer, ImGuiIO& io);
+  Quad(GLFWwindow *window, Renderer& renderer, ImGuiIO& io);
   ~Quad();
 
   void OnUpdate(const float deltaTime) override;
@@ -22,9 +22,8 @@ public:
   void OnImGuiRender() override;
 };
 
-Quad::Quad(Renderer& renderer, ImGuiIO& io)
-  : Scene(renderer, io)
-{
+Quad::Quad(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
+  : Scene(window, renderer, io) {
   auto positions = std::array {
     -100.0f, -100.0f,
      100.0f, -100.0f,

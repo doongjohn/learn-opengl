@@ -13,7 +13,7 @@ private:
   glm::vec3 cube_pos;
 
 public:
-  Cube(Renderer& renderer, ImGuiIO& io);
+  Cube(GLFWwindow *window, Renderer& renderer, ImGuiIO& io);
   ~Cube();
 
   void OnUpdate(const float deltaTime) override;
@@ -21,9 +21,8 @@ public:
   void OnImGuiRender() override;
 };
 
-Cube::Cube(Renderer& renderer, ImGuiIO& io)
-  : Scene(renderer, io)
-{
+Cube::Cube(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
+  : Scene(window, renderer, io) {
   struct Vertex {
     float pos[3];
     float uv[2];

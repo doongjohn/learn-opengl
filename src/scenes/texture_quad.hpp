@@ -15,7 +15,7 @@ private:
   glm::vec4 quad_color;
 
 public:
-  QuadWithTexture(Renderer& renderer, ImGuiIO& io);
+  QuadWithTexture(GLFWwindow *window, Renderer& renderer, ImGuiIO& io);
   ~QuadWithTexture();
 
   void OnUpdate(const float deltaTime) override;
@@ -23,9 +23,8 @@ public:
   void OnImGuiRender() override;
 };
 
-QuadWithTexture::QuadWithTexture(Renderer& renderer, ImGuiIO& io)
-  : Scene(renderer, io)
-{
+QuadWithTexture::QuadWithTexture(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
+  : Scene(window, renderer, io) {
   struct Vertex {
     float pos[2];
     float uv[2];

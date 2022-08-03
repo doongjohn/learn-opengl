@@ -10,10 +10,11 @@ private:
   VertexArray vao;
   IndexBuffer ebo;
   ShaderProgram shader;
+  glm::vec3 cam_pos;
   glm::vec3 cube_pos;
 
 public:
-  Camera(Renderer& renderer, ImGuiIO& io);
+  Camera(GLFWwindow *window, Renderer& renderer, ImGuiIO& io);
   ~Camera();
 
   void OnUpdate(const float deltaTime) override;
@@ -21,9 +22,8 @@ public:
   void OnImGuiRender() override;
 };
 
-Camera::Camera(Renderer& renderer, ImGuiIO& io)
-  : Scene(renderer, io)
-{
+Camera::Camera(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
+  : Scene(window, renderer, io) {
   struct Vertex {
     float pos[3];
     float uv[2];
@@ -68,12 +68,38 @@ Camera::Camera(Renderer& renderer, ImGuiIO& io)
   shader.SetUniform3f("u_Color_01", glm::vec3(86, 35, 73) / 255.0f);
   shader.Unbind();
 
-  // initialize model position
+  // initialize position
+  cam_pos = glm::vec3(0.0f, 0.0f, 0.0f);
   cube_pos = glm::vec3(0.0f, 0.0f, -10.0f);
 }
 Camera::~Camera() { }
 
-void Camera::OnUpdate(const float deltaTime) { }
+void Camera::OnUpdate(const float deltaTime) {
+  int w = glfwGetKey(this->window, GLFW_KEY_W);
+  int s = glfwGetKey(this->window, GLFW_KEY_S);
+  int a = glfwGetKey(this->window, GLFW_KEY_A);
+  int d = glfwGetKey(this->window, GLFW_KEY_D);
+  // up
+  if (w == GLFW_PRESS && s != GLFW_PRESS)
+  {
+    cam_pos.y += 0.1f;
+  }
+  // down
+  if (s == GLFW_PRESS && w != GLFW_PRESS)
+  {
+    cam_pos.y -= 0.1f;
+  }
+  // left
+  if (a == GLFW_PRESS && d != GLFW_PRESS)
+  {
+    cam_pos.x -= 0.1f;
+  }
+  // right
+  if (d == GLFW_PRESS && a != GLFW_PRESS)
+  {
+    cam_pos.x += 0.1f;
+  }
+}
 
 void Camera::OnRender() {
   static float rotation = 0.0f;
@@ -82,11 +108,13 @@ void Camera::OnRender() {
   // set mvp matrix
   // Perspective Projection - Part 1 https://youtu.be/LhQ85bPCAJ8
   glm::mat4 proj = glm::perspective(glm::radians(45.0f), (float)renderer.width / renderer.height, 0.1f, 100.0f);
-  glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+  glm::mat4 view = glm::translate(glm::mat4(1.0f), cam_pos);
   glm::mat4 model =
     glm::translate(glm::mat4(1.0f), cube_pos) *
     glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(1.0f, 0.0f, 1.0f));
   glm::mat4 mvp = proj * glm::inverse(view) * model;
+  //                     ^^^^^^^^^^^^^^^^^
+  //                     └-> inverse the camera transform to create an illusion of moving the camera
 
   vao.Bind();
   ebo.Bind();
@@ -98,6 +126,7 @@ void Camera::OnRender() {
 void Camera::OnImGuiRender() {
   ImGui::Begin("Hello, world!");
   ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+  ImGui::Text("Press W, A, S, D to move a camera.");
   ImGui::SliderFloat3("model position", &cube_pos[0], -10.0f, 10.0f);
   ImGui::End();
 }

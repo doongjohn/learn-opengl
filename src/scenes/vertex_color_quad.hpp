@@ -13,7 +13,7 @@ private:
   glm::vec3 quad_pos;
 
 public:
-  VertexColorQuad(Renderer &renderer, ImGuiIO &io);
+  VertexColorQuad(GLFWwindow *window, Renderer &renderer, ImGuiIO &io);
   ~VertexColorQuad();
 
   void OnUpdate(const float deltaTime) override;
@@ -21,9 +21,8 @@ public:
   void OnImGuiRender() override;
 };
 
-VertexColorQuad::VertexColorQuad(Renderer &renderer, ImGuiIO &io)
-  : Scene(renderer, io)
-{
+VertexColorQuad::VertexColorQuad(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
+  : Scene(window, renderer, io) {
   struct Vertex {
     float pos[2];
     float uv[2];

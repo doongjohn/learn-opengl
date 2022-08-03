@@ -33,27 +33,27 @@ static constexpr auto scene_list = array {
   "heart shader",
 };
 
-Scene* create_scene(Renderer &renderer, ImGuiIO &io, int scene_index) {
+Scene* create_scene(GLFWwindow *window, Renderer &renderer, ImGuiIO &io, int scene_index) {
   switch (scene_index) {
-    case 0: return new Scenes::ClearColor(renderer, io);
-    case 1: return new Scenes::Quad(renderer, io);
-    case 2: return new Scenes::VertexColorTriangle(renderer, io);
-    case 3: return new Scenes::VertexColorQuad(renderer, io);
-    case 4: return new Scenes::QuadWithTexture(renderer, io);
-    case 5: return new Scenes::Perspective(renderer, io);
-    case 6: return new Scenes::Cube(renderer, io);
-    case 7: return new Scenes::Camera(renderer, io);
-    case 8: return new Scenes::CircleShader(renderer, io);
-    case 9: return new Scenes::HeartShader(renderer, io);
+    case 0: return new Scenes::ClearColor(window, renderer, io);
+    case 1: return new Scenes::Quad(window, renderer, io);
+    case 2: return new Scenes::VertexColorTriangle(window, renderer, io);
+    case 3: return new Scenes::VertexColorQuad(window, renderer, io);
+    case 4: return new Scenes::QuadWithTexture(window, renderer, io);
+    case 5: return new Scenes::Perspective(window, renderer, io);
+    case 6: return new Scenes::Cube(window, renderer, io);
+    case 7: return new Scenes::Camera(window, renderer, io);
+    case 8: return new Scenes::CircleShader(window, renderer, io);
+    case 9: return new Scenes::HeartShader(window, renderer, io);
     default: return nullptr;
   }
 }
 
-Scene* draw_menu(Scene *&scene, Renderer &renderer, ImGuiIO &io) {
+Scene* draw_menu(Scene *&scene, GLFWwindow *window, Renderer &renderer, ImGuiIO &io) {
   ImGui::Begin("Scenes");
   for (int i = 0; i < scene_list.size(); ++i) {
     if (ImGui::Button(scene_list[i])) {
-      return SceneManager::create_scene(renderer, io, i);
+      return SceneManager::create_scene(window, renderer, io, i);
     }
   }
   ImGui::End();

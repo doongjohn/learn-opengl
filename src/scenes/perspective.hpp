@@ -14,7 +14,7 @@ private:
   glm::vec4 quad_color;
 
 public:
-  Perspective(Renderer& renderer, ImGuiIO& io);
+  Perspective(GLFWwindow *window, Renderer& renderer, ImGuiIO& io);
   ~Perspective();
 
   void OnUpdate(const float deltaTime) override;
@@ -22,8 +22,8 @@ public:
   void OnImGuiRender() override;
 };
 
-Perspective::Perspective(Renderer& renderer, ImGuiIO& io)
-  : Scene(renderer, io)
+Perspective::Perspective(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
+  : Scene(window, renderer, io)
 {
   auto positions = std::array {
     -1.0f, -1.0f,

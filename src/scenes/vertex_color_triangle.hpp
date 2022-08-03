@@ -13,7 +13,7 @@ private:
   glm::vec3 quad_pos;
 
 public:
-  VertexColorTriangle(Renderer& renderer, ImGuiIO& io);
+  VertexColorTriangle(GLFWwindow *window, Renderer& renderer, ImGuiIO& io);
   ~VertexColorTriangle();
 
   void OnUpdate(const float deltaTime) override;
@@ -21,9 +21,8 @@ public:
   void OnImGuiRender() override;
 };
 
-VertexColorTriangle::VertexColorTriangle(Renderer& renderer, ImGuiIO& io)
-  : Scene(renderer, io)
-{
+VertexColorTriangle::VertexColorTriangle(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
+  : Scene(window, renderer, io) {
   struct Vertex {
     float pos[2];
     float color[3];

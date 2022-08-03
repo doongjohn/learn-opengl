@@ -84,14 +84,15 @@ int main(int argc, char **argv) {
   ImGui_ImplOpenGL3_Init("#version 460 core");
 
   // create scene
-  Scene* scene = SceneManager::create_scene(renderer, io, 0);
+  Scene* scene = SceneManager::create_scene(window, renderer, io, 0);
 
   // render loop
   while (!glfwWindowShouldClose(window)) {
     // clear screen
     renderer.Clear();
 
-    // scene render
+    // scene update
+    scene->OnUpdate(0);
     scene->OnRender();
 
     // prepare imgui
@@ -103,7 +104,7 @@ int main(int argc, char **argv) {
     scene->OnImGuiRender();
 
     // change scene
-    auto next_scene = SceneManager::draw_menu(scene, renderer, io);
+    auto next_scene = SceneManager::draw_menu(scene, window, renderer, io);
     SceneManager::change_scene(renderer, scene, next_scene);
 
     // draw imgui
