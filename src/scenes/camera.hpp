@@ -79,15 +79,15 @@ void Camera::OnUpdate(const float deltaTime) {
   int s = glfwGetKey(this->window, GLFW_KEY_S);
   int a = glfwGetKey(this->window, GLFW_KEY_A);
   int d = glfwGetKey(this->window, GLFW_KEY_D);
-  // up
+  // forward
   if (w == GLFW_PRESS && s != GLFW_PRESS)
   {
-    cam_pos.y += 0.1f;
+    cam_pos.z -= 0.1f;
   }
-  // down
+  // backward
   if (s == GLFW_PRESS && w != GLFW_PRESS)
   {
-    cam_pos.y -= 0.1f;
+    cam_pos.z += 0.1f;
   }
   // left
   if (a == GLFW_PRESS && d != GLFW_PRESS)
@@ -98,6 +98,19 @@ void Camera::OnUpdate(const float deltaTime) {
   if (d == GLFW_PRESS && a != GLFW_PRESS)
   {
     cam_pos.x += 0.1f;
+  }
+
+  int arrow_up = glfwGetKey(this->window, GLFW_KEY_UP);
+  int arrow_down = glfwGetKey(this->window, GLFW_KEY_DOWN);
+  // up
+  if (arrow_up == GLFW_PRESS && arrow_down != GLFW_PRESS)
+  {
+    cam_pos.y += 0.1f;
+  }
+  // down
+  if (arrow_down == GLFW_PRESS && arrow_up != GLFW_PRESS)
+  {
+    cam_pos.y -= 0.1f;
   }
 }
 
