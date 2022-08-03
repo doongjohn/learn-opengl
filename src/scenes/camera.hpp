@@ -17,7 +17,7 @@ public:
   Camera(GLFWwindow *window, Renderer& renderer, ImGuiIO& io);
   ~Camera();
 
-  void OnUpdate(const float deltaTime) override;
+  void OnUpdate(const float delta_time) override;
   void OnRender() override;
   void OnImGuiRender() override;
 };
@@ -74,7 +74,7 @@ Camera::Camera(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
 }
 Camera::~Camera() { }
 
-void Camera::OnUpdate(const float deltaTime) {
+void Camera::OnUpdate(const float delta_time) {
   int w = glfwGetKey(this->window, GLFW_KEY_W);
   int s = glfwGetKey(this->window, GLFW_KEY_S);
   int a = glfwGetKey(this->window, GLFW_KEY_A);

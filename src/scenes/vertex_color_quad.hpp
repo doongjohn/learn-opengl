@@ -16,7 +16,7 @@ public:
   VertexColorQuad(GLFWwindow *window, Renderer &renderer, ImGuiIO &io);
   ~VertexColorQuad();
 
-  void OnUpdate(const float deltaTime) override;
+  void OnUpdate(const float delta_time) override;
   void OnRender() override;
   void OnImGuiRender() override;
 };
@@ -64,7 +64,7 @@ VertexColorQuad::VertexColorQuad(GLFWwindow *window, Renderer &renderer, ImGuiIO
 }
 VertexColorQuad::~VertexColorQuad() { }
 
-void VertexColorQuad::OnUpdate(const float deltaTime) { }
+void VertexColorQuad::OnUpdate(const float delta_time) { }
 
 void VertexColorQuad::OnRender() {
   // set mvp matrix

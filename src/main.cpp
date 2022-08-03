@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include <chrono>
 
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
@@ -86,13 +87,20 @@ int main(int argc, char **argv) {
   // create scene
   Scene* scene = SceneManager::create_scene(window, renderer, io, 0);
 
-  // render loop
+  // main loop
+  float frame_last_time = (float)glfwGetTime();
   while (!glfwWindowShouldClose(window)) {
+    // calculate delta time
+    float frame_start_time = (float)glfwGetTime();
+    std::cout << frame_start_time << std::endl;
+    float delta_time = (frame_start_time - frame_last_time) / 1000.0f;
+    frame_last_time = frame_start_time;
+
     // clear screen
     renderer.Clear();
 
     // scene update
-    scene->OnUpdate(0);
+    scene->OnUpdate(delta_time);
     scene->OnRender();
 
     // prepare imgui

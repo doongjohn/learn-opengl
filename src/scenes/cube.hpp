@@ -16,7 +16,7 @@ public:
   Cube(GLFWwindow *window, Renderer& renderer, ImGuiIO& io);
   ~Cube();
 
-  void OnUpdate(const float deltaTime) override;
+  void OnUpdate(const float delta_time) override;
   void OnRender() override;
   void OnImGuiRender() override;
 };
@@ -72,7 +72,7 @@ Cube::Cube(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
 }
 Cube::~Cube() { }
 
-void Cube::OnUpdate(const float deltaTime) { }
+void Cube::OnUpdate(const float delta_time) { }
 
 void Cube::OnRender() {
   static float rotation = 0.0f;

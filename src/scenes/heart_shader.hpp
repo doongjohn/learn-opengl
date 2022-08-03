@@ -17,7 +17,7 @@ public:
   HeartShader(GLFWwindow *window, Renderer& renderer, ImGuiIO& io);
   ~HeartShader();
 
-  void OnUpdate(const float deltaTime) override;
+  void OnUpdate(const float delta_time) override;
   void OnRender() override;
   void OnImGuiRender() override;
 };
@@ -62,7 +62,7 @@ HeartShader::HeartShader(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
 }
 HeartShader::~HeartShader() { }
 
-void HeartShader::OnUpdate(const float deltaTime) { }
+void HeartShader::OnUpdate(const float delta_time) { }
 
 void HeartShader::OnRender() {
   // set mvp matrix

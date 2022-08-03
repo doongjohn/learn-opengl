@@ -17,7 +17,7 @@ public:
   CircleShader(GLFWwindow *window, Renderer &renderer, ImGuiIO &io);
   ~CircleShader();
 
-  void OnUpdate(const float deltaTime) override;
+  void OnUpdate(const float delta_time) override;
   void OnRender() override;
   void OnImGuiRender() override;
 };
@@ -62,7 +62,7 @@ CircleShader::CircleShader(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
 }
 CircleShader::~CircleShader() { }
 
-void CircleShader::OnUpdate(const float deltaTime) { }
+void CircleShader::OnUpdate(const float delta_time) { }
 
 void CircleShader::OnRender() {
   // set mvp matrix

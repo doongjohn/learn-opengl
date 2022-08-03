@@ -18,7 +18,7 @@ public:
   QuadWithTexture(GLFWwindow *window, Renderer& renderer, ImGuiIO& io);
   ~QuadWithTexture();
 
-  void OnUpdate(const float deltaTime) override;
+  void OnUpdate(const float delta_time) override;
   void OnRender() override;
   void OnImGuiRender() override;
 };
@@ -76,7 +76,7 @@ QuadWithTexture::QuadWithTexture(GLFWwindow *window, Renderer &renderer, ImGuiIO
 }
 QuadWithTexture::~QuadWithTexture() { }
 
-void QuadWithTexture::OnUpdate(const float deltaTime) { }
+void QuadWithTexture::OnUpdate(const float delta_time) { }
 
 void QuadWithTexture::OnRender() {
   static float rotation = 0.0f;

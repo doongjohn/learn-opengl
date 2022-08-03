@@ -17,7 +17,7 @@ public:
   Quad(GLFWwindow *window, Renderer& renderer, ImGuiIO& io);
   ~Quad();
 
-  void OnUpdate(const float deltaTime) override;
+  void OnUpdate(const float delta_time) override;
   void OnRender() override;
   void OnImGuiRender() override;
 };
@@ -55,7 +55,7 @@ Quad::Quad(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
 }
 Quad::~Quad() { }
 
-void Quad::OnUpdate(const float deltaTime) { }
+void Quad::OnUpdate(const float delta_time) { }
 
 void Quad::OnRender() {
   static float rotation = 0.0f;

@@ -17,7 +17,7 @@ public:
   Perspective(GLFWwindow *window, Renderer& renderer, ImGuiIO& io);
   ~Perspective();
 
-  void OnUpdate(const float deltaTime) override;
+  void OnUpdate(const float delta_time) override;
   void OnRender() override;
   void OnImGuiRender() override;
 };
@@ -56,7 +56,7 @@ Perspective::Perspective(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
 }
 Perspective::~Perspective() { }
 
-void Perspective::OnUpdate(const float deltaTime) { }
+void Perspective::OnUpdate(const float delta_time) { }
 
 void Perspective::OnRender() {
   static float rotation = 0.0f;

@@ -22,7 +22,7 @@ public:
     : window(window), renderer(renderer), io(io) { }
   virtual ~Scene() {}
 
-  virtual void OnUpdate(const float deltaTime) {}
+  virtual void OnUpdate(const float delta_time) {}
   virtual void OnRender() {}
   virtual void OnImGuiRender() {}
 };

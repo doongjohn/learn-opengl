@@ -16,7 +16,7 @@ public:
   VertexColorTriangle(GLFWwindow *window, Renderer& renderer, ImGuiIO& io);
   ~VertexColorTriangle();
 
-  void OnUpdate(const float deltaTime) override;
+  void OnUpdate(const float delta_time) override;
   void OnRender() override;
   void OnImGuiRender() override;
 };
@@ -58,7 +58,7 @@ VertexColorTriangle::VertexColorTriangle(GLFWwindow *window, Renderer &renderer,
 }
 VertexColorTriangle::~VertexColorTriangle() { }
 
-void VertexColorTriangle::OnUpdate(const float deltaTime) { }
+void VertexColorTriangle::OnUpdate(const float delta_time) { }
 
 void VertexColorTriangle::OnRender() {
   // set mvp matrix
