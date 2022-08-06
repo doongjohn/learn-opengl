@@ -119,15 +119,16 @@ void Camera::OnRender() {
   rotation += 0.2f;
 
   // set mvp matrix
-  // Perspective Projection - Part 1 https://youtu.be/LhQ85bPCAJ8
-  glm::mat4 proj = glm::perspective(glm::radians(45.0f), (float)renderer.width / renderer.height, 0.1f, 100.0f);
+  const float aspect_ratio = (float)renderer.width / renderer.height;
+  glm::mat4 proj = glm::perspective(glm::radians(45.0f), aspect_ratio, 0.1f, 100.0f);
   glm::mat4 view = glm::translate(glm::mat4(1.0f), cam_pos);
+  view = glm::inverse(view);
+  //     ^^^^^^^^^^^^^^^^^^
+  //     └-> inverse the camera transform to create an illusion of moving the camera
   glm::mat4 model =
     glm::translate(glm::mat4(1.0f), cube_pos) *
     glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(1.0f, 0.0f, 1.0f));
-  glm::mat4 mvp = proj * glm::inverse(view) * model;
-  //                     ^^^^^^^^^^^^^^^^^
-  //                     └-> inverse the camera transform to create an illusion of moving the camera
+  glm::mat4 mvp = proj * view * model;
 
   vao.Bind();
   ebo.Bind();

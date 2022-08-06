@@ -1,41 +1,6 @@
 [
 {
   "directory": "/home/doongjohn/projects/opengl",
-  "arguments": ["/usr/bin/x86_64-w64-mingw32-g++", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++11", "-Isrc/vendor/imgui", "-DGLFW_INCLUDE_NONE", "-I", "/home/doongjohn/.xmake/packages/g/glfw/3.3.7/10bdc13718bb499f9fa27bbeed0e5820/include", "-DNDEBUG", "-o", "build/.objs/imgui/mingw/x86_64/release/src/vendor/imgui/imgui_widgets.cpp.obj", "src/vendor/imgui/imgui_widgets.cpp"],
-  "file": "src/vendor/imgui/imgui_widgets.cpp"
-},
-{
-  "directory": "/home/doongjohn/projects/opengl",
-  "arguments": ["/usr/bin/x86_64-w64-mingw32-g++", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++11", "-Isrc/vendor/imgui", "-DGLFW_INCLUDE_NONE", "-I", "/home/doongjohn/.xmake/packages/g/glfw/3.3.7/10bdc13718bb499f9fa27bbeed0e5820/include", "-DNDEBUG", "-o", "build/.objs/imgui/mingw/x86_64/release/src/vendor/imgui/imgui_tables.cpp.obj", "src/vendor/imgui/imgui_tables.cpp"],
-  "file": "src/vendor/imgui/imgui_tables.cpp"
-},
-{
-  "directory": "/home/doongjohn/projects/opengl",
-  "arguments": ["/usr/bin/x86_64-w64-mingw32-g++", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++11", "-Isrc/vendor/imgui", "-DGLFW_INCLUDE_NONE", "-I", "/home/doongjohn/.xmake/packages/g/glfw/3.3.7/10bdc13718bb499f9fa27bbeed0e5820/include", "-DNDEBUG", "-o", "build/.objs/imgui/mingw/x86_64/release/src/vendor/imgui/imgui_draw.cpp.obj", "src/vendor/imgui/imgui_draw.cpp"],
-  "file": "src/vendor/imgui/imgui_draw.cpp"
-},
-{
-  "directory": "/home/doongjohn/projects/opengl",
-  "arguments": ["/usr/bin/x86_64-w64-mingw32-g++", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++11", "-Isrc/vendor/imgui", "-DGLFW_INCLUDE_NONE", "-I", "/home/doongjohn/.xmake/packages/g/glfw/3.3.7/10bdc13718bb499f9fa27bbeed0e5820/include", "-DNDEBUG", "-o", "build/.objs/imgui/mingw/x86_64/release/src/vendor/imgui/imgui.cpp.obj", "src/vendor/imgui/imgui.cpp"],
-  "file": "src/vendor/imgui/imgui.cpp"
-},
-{
-  "directory": "/home/doongjohn/projects/opengl",
-  "arguments": ["/usr/bin/x86_64-w64-mingw32-g++", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++11", "-Isrc/vendor/imgui", "-DGLFW_INCLUDE_NONE", "-I", "/home/doongjohn/.xmake/packages/g/glfw/3.3.7/10bdc13718bb499f9fa27bbeed0e5820/include", "-DNDEBUG", "-o", "build/.objs/imgui/mingw/x86_64/release/src/vendor/imgui/backends/imgui_impl_glfw.cpp.obj", "src/vendor/imgui/backends/imgui_impl_glfw.cpp"],
-  "file": "src/vendor/imgui/backends/imgui_impl_glfw.cpp"
-},
-{
-  "directory": "/home/doongjohn/projects/opengl",
-  "arguments": ["/usr/bin/x86_64-w64-mingw32-g++", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++11", "-Isrc/vendor/imgui", "-DGLFW_INCLUDE_NONE", "-I", "/home/doongjohn/.xmake/packages/g/glfw/3.3.7/10bdc13718bb499f9fa27bbeed0e5820/include", "-DNDEBUG", "-o", "build/.objs/imgui/mingw/x86_64/release/src/vendor/imgui/backends/imgui_impl_opengl3.cpp.obj", "src/vendor/imgui/backends/imgui_impl_opengl3.cpp"],
-  "file": "src/vendor/imgui/backends/imgui_impl_opengl3.cpp"
-},
-{
-  "directory": "/home/doongjohn/projects/opengl",
-  "arguments": ["/usr/bin/x86_64-w64-mingw32-gcc", "-c", "-m64", "-fvisibility=hidden", "-O3", "-std=c17", "-Isrc/vendor/glad/include", "-DNDEBUG", "-o", "build/.objs/glad/mingw/x86_64/release/src/vendor/glad/src/glad.c.obj", "src/vendor/glad/src/glad.c"],
-  "file": "src/vendor/glad/src/glad.c"
-},
-{
-  "directory": "/home/doongjohn/projects/opengl",
   "arguments": ["/usr/bin/x86_64-w64-mingw32-g++", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++20", "-Isrc", "-Isrc/vendor", "-Isrc/vendor/glm", "-Isrc/vendor/glad/include", "-Isrc/vendor/imgui", "-DGLFW_INCLUDE_NONE", "-I", "/home/doongjohn/.xmake/packages/g/glfw/3.3.7/10bdc13718bb499f9fa27bbeed0e5820/include", "-DNDEBUG", "-o", "build/.objs/opengl/mingw/x86_64/release/src/renderer/vertex_array.cpp.obj", "src/renderer/vertex_array.cpp"],
   "file": "src/renderer/vertex_array.cpp"
 },
@@ -71,6 +36,41 @@
 },
 {
   "directory": "/home/doongjohn/projects/opengl",
+  "arguments": ["/usr/bin/x86_64-w64-mingw32-g++", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++11", "-Isrc/vendor/imgui", "-DGLFW_INCLUDE_NONE", "-I", "/home/doongjohn/.xmake/packages/g/glfw/3.3.7/10bdc13718bb499f9fa27bbeed0e5820/include", "-DNDEBUG", "-o", "build/.objs/imgui/mingw/x86_64/release/src/vendor/imgui/imgui_widgets.cpp.obj", "src/vendor/imgui/imgui_widgets.cpp"],
+  "file": "src/vendor/imgui/imgui_widgets.cpp"
+},
+{
+  "directory": "/home/doongjohn/projects/opengl",
+  "arguments": ["/usr/bin/x86_64-w64-mingw32-g++", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++11", "-Isrc/vendor/imgui", "-DGLFW_INCLUDE_NONE", "-I", "/home/doongjohn/.xmake/packages/g/glfw/3.3.7/10bdc13718bb499f9fa27bbeed0e5820/include", "-DNDEBUG", "-o", "build/.objs/imgui/mingw/x86_64/release/src/vendor/imgui/imgui_tables.cpp.obj", "src/vendor/imgui/imgui_tables.cpp"],
+  "file": "src/vendor/imgui/imgui_tables.cpp"
+},
+{
+  "directory": "/home/doongjohn/projects/opengl",
+  "arguments": ["/usr/bin/x86_64-w64-mingw32-g++", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++11", "-Isrc/vendor/imgui", "-DGLFW_INCLUDE_NONE", "-I", "/home/doongjohn/.xmake/packages/g/glfw/3.3.7/10bdc13718bb499f9fa27bbeed0e5820/include", "-DNDEBUG", "-o", "build/.objs/imgui/mingw/x86_64/release/src/vendor/imgui/imgui_draw.cpp.obj", "src/vendor/imgui/imgui_draw.cpp"],
+  "file": "src/vendor/imgui/imgui_draw.cpp"
+},
+{
+  "directory": "/home/doongjohn/projects/opengl",
+  "arguments": ["/usr/bin/x86_64-w64-mingw32-g++", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++11", "-Isrc/vendor/imgui", "-DGLFW_INCLUDE_NONE", "-I", "/home/doongjohn/.xmake/packages/g/glfw/3.3.7/10bdc13718bb499f9fa27bbeed0e5820/include", "-DNDEBUG", "-o", "build/.objs/imgui/mingw/x86_64/release/src/vendor/imgui/imgui.cpp.obj", "src/vendor/imgui/imgui.cpp"],
+  "file": "src/vendor/imgui/imgui.cpp"
+},
+{
+  "directory": "/home/doongjohn/projects/opengl",
+  "arguments": ["/usr/bin/x86_64-w64-mingw32-g++", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++11", "-Isrc/vendor/imgui", "-DGLFW_INCLUDE_NONE", "-I", "/home/doongjohn/.xmake/packages/g/glfw/3.3.7/10bdc13718bb499f9fa27bbeed0e5820/include", "-DNDEBUG", "-o", "build/.objs/imgui/mingw/x86_64/release/src/vendor/imgui/backends/imgui_impl_glfw.cpp.obj", "src/vendor/imgui/backends/imgui_impl_glfw.cpp"],
+  "file": "src/vendor/imgui/backends/imgui_impl_glfw.cpp"
+},
+{
+  "directory": "/home/doongjohn/projects/opengl",
+  "arguments": ["/usr/bin/x86_64-w64-mingw32-g++", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++11", "-Isrc/vendor/imgui", "-DGLFW_INCLUDE_NONE", "-I", "/home/doongjohn/.xmake/packages/g/glfw/3.3.7/10bdc13718bb499f9fa27bbeed0e5820/include", "-DNDEBUG", "-o", "build/.objs/imgui/mingw/x86_64/release/src/vendor/imgui/backends/imgui_impl_opengl3.cpp.obj", "src/vendor/imgui/backends/imgui_impl_opengl3.cpp"],
+  "file": "src/vendor/imgui/backends/imgui_impl_opengl3.cpp"
+},
+{
+  "directory": "/home/doongjohn/projects/opengl",
   "arguments": ["/usr/bin/x86_64-w64-mingw32-gcc", "-c", "-m64", "-fvisibility=hidden", "-O3", "-std=c17", "-DNDEBUG", "-o", "build/.objs/stb/mingw/x86_64/release/src/vendor/stb/stb_image.c.obj", "src/vendor/stb/stb_image.c"],
   "file": "src/vendor/stb/stb_image.c"
+},
+{
+  "directory": "/home/doongjohn/projects/opengl",
+  "arguments": ["/usr/bin/x86_64-w64-mingw32-gcc", "-c", "-m64", "-fvisibility=hidden", "-O3", "-std=c17", "-Isrc/vendor/glad/include", "-DNDEBUG", "-o", "build/.objs/glad/mingw/x86_64/release/src/vendor/glad/src/glad.c.obj", "src/vendor/glad/src/glad.c"],
+  "file": "src/vendor/glad/src/glad.c"
 }]
