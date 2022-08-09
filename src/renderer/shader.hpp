@@ -38,8 +38,9 @@ public:
   void SetUniformMat4f(const std::string& name, const glm::mat4& mat4);
 
 private:
-  std::tuple<std::string, std::string> ParseShader(const std::string& file_path);
+  static std::tuple<std::string, std::string> ParseShader(const std::string& file_path);
   static uint32_t CompileShader(const uint32_t shader_type, const std::string& source);
   static uint32_t CreateShader(const std::string& vertex_shader, const std::string& fragment_shader);
+
   int32_t GetUniformLocation(const std::string& name);
 };

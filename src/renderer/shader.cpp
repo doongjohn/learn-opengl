@@ -9,8 +9,13 @@ using std::string_view;
 ShaderProgram::ShaderProgram(const std::string& file_path)
   : gl_handle(0), file_path(file_path)
 {
-  auto [vertex_src, fragment_src] = this->ParseShader(file_path);
+  auto [vertex_src, fragment_src] = ShaderProgram::ParseShader(file_path);
   this->gl_handle = ShaderProgram::CreateShader(vertex_src, fragment_src);
+  if (this->gl_handle == 0) {
+    std::cout << "Error: Shader compilation failed!\n";
+    // TODO: provide fallback shader
+    return;
+  }
 
   auto props = array {
     GL_NAME_LENGTH,
@@ -100,7 +105,7 @@ tuple<string, string> ShaderProgram::ParseShader(const string& file_path) {
 uint32_t ShaderProgram::CompileShader(const uint32_t shader_type, const string& source) {
   uint32_t shader_handle = glCreateShader(shader_type);
   if (shader_handle == 0) {
-    std::cout << "Error: failed to create a shader!\n";
+    std::cout << "Error: [GL func] Failed to create a shader!\n";
     exit(1);
   }
 
@@ -122,7 +127,7 @@ uint32_t ShaderProgram::CompileShader(const uint32_t shader_type, const string& 
     glGetShaderInfoLog(shader_handle, length, &length, &message[0]);
 
     // print error message
-    std::cout << "Failed to compile ";
+    std::cout << "Error: Failed to compile ";
     switch (shader_type) {
       case GL_VERTEX_SHADER:
         std::cout << "vertex shader!\n";
@@ -135,8 +140,7 @@ uint32_t ShaderProgram::CompileShader(const uint32_t shader_type, const string& 
 
     // delete shader
     glDeleteShader(shader_handle);
-
-    exit(1);
+    return 0;
   }
 
   return shader_handle;
@@ -145,12 +149,17 @@ uint32_t ShaderProgram::CompileShader(const uint32_t shader_type, const string& 
 uint32_t ShaderProgram::CreateShader(const string& vertex_shader, const string& fragment_shader) {
   uint32_t program_handle = glCreateProgram();
   if (program_handle == 0) {
-    std::cout << "Error: failed to create a shader program!\n";
+    std::cout << "Error: [GL func] failed to create a shader program!\n";
     exit(1);
   }
 
   uint32_t vs_handle = ShaderProgram::CompileShader(GL_VERTEX_SHADER, vertex_shader);
+  if (vs_handle == 0)
+    return 0;
+
   uint32_t fs_handle = ShaderProgram::CompileShader(GL_FRAGMENT_SHADER, fragment_shader);
+  if (vs_handle == 0)
+    return 0;
 
   glAttachShader(program_handle, vs_handle);
   glAttachShader(program_handle, fs_handle);
