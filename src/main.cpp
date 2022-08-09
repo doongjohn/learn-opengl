@@ -23,10 +23,6 @@ static void framebuffer_size_callback(GLFWwindow *window, int width, int height)
 }
 
 int main(int argc, char **argv) {
-  // TODO: rotate camera using mouse
-  // https://www.youtube.com/watch?v=MZuYmG1GBFk&list=PLA0dXqQjCx0S04ntJKUftl6OaOgsiwHjA&index=17
-  // https://stackoverflow.com/questions/4431637/hiding-mouse-cursor-with-glfw
-
   glfwInit();
 
   // set opengl version
