@@ -10,8 +10,11 @@ private:
   VertexArray vao;
   IndexBuffer ebo;
   ShaderProgram shader;
-  glm::vec3 cam_pos;
   glm::vec3 cube_pos;
+  glm::vec3 cam_pos;
+  glm::vec3 cam_forward;
+  glm::vec3 cam_up;
+  glm::vec3 cam_right;
 
 public:
   Camera(GLFWwindow *window, Renderer& renderer, ImGuiIO& io);
@@ -79,25 +82,26 @@ void Camera::OnUpdate(const float delta_time) {
   int s = glfwGetKey(this->window, GLFW_KEY_S);
   int a = glfwGetKey(this->window, GLFW_KEY_A);
   int d = glfwGetKey(this->window, GLFW_KEY_D);
+  glm::vec3 move_dir = glm::vec3(0);
   // forward
   if (w == GLFW_PRESS && s != GLFW_PRESS)
   {
-    cam_pos.z -= 0.1f;
+    move_dir.z = 1;
   }
   // backward
   if (s == GLFW_PRESS && w != GLFW_PRESS)
   {
-    cam_pos.z += 0.1f;
+    move_dir.z = -1;
   }
   // left
   if (a == GLFW_PRESS && d != GLFW_PRESS)
   {
-    cam_pos.x -= 0.1f;
+    move_dir.x = -1;
   }
   // right
   if (d == GLFW_PRESS && a != GLFW_PRESS)
   {
-    cam_pos.x += 0.1f;
+    move_dir.x = 1;
   }
 
   int arrow_up = glfwGetKey(this->window, GLFW_KEY_UP);
@@ -105,29 +109,55 @@ void Camera::OnUpdate(const float delta_time) {
   // up
   if (arrow_up == GLFW_PRESS && arrow_down != GLFW_PRESS)
   {
-    cam_pos.y += 0.1f;
+    move_dir.y = 1;
   }
   // down
   if (arrow_down == GLFW_PRESS && arrow_up != GLFW_PRESS)
   {
-    cam_pos.y -= 0.1f;
+    move_dir.y = -1;
   }
+
+  cam_pos += cam_forward * (move_dir.z * 0.1f);
+  cam_pos += cam_right * (move_dir.x * 0.1f);
+  cam_pos += cam_up * (move_dir.y * 0.1f);
 }
 
 void Camera::OnRender() {
   static float rotation = 0.0f;
   rotation += 0.2f;
 
-  // set mvp matrix
+  // create projection matrix
   const float aspect_ratio = (float)renderer.width / renderer.height;
   glm::mat4 proj = glm::perspective(glm::radians(45.0f), aspect_ratio, 0.1f, 100.0f);
-  glm::mat4 view = glm::translate(glm::mat4(1.0f), cam_pos);
+
+  // create view matrix
+  glm::mat4 view;
+  glm::mat4 view_pos = glm::translate(glm::mat4(1.0f), cam_pos);
+  glm::quat view_quat = glm::quat(glm::vec3(0.0f, glm::radians(15.0f), 0.0f)); // euler angles to quaternion
+
+  // cam_forward = view_quat * glm::vec3(0.0f, 0.0f, -1.0f); // calc forward vector
+  // cam_right = view_quat * glm::vec3(1.0f, 0.0f, 0.0f); // calc right vector
+  // cam_up = view_quat * glm::vec3(0.0f, 1.0f, 0.0f); // calc up vector
+  glm::mat4 view_rot = glm::mat4_cast(view_quat);
+  // how to get direction vector from transform matrix
+  // https://community.khronos.org/t/get-direction-from-transformation-matrix-or-quat/65502/2
+  cam_forward = -glm::vec3(view_rot[2]); // get forward vector
+  cam_right = glm::vec3(view_rot[0]); // get right vector
+  cam_up = glm::vec3(view_rot[1]); // get up vector
+  // is this same as this?
+  // https://www.gamedev.net/forums/topic/56471-extracting-direction-vectors-from-quaternion/
+  // more about rotation
+  // http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-17-quaternions/#foreword-rotation-vs-orientation
+  view = view_pos * view_rot;
   view = glm::inverse(view);
   //     ^^^^^^^^^^^^^^^^^^
-  //     └-> inverse the camera transform to create an illusion of moving the camera
+  //     └-> inverse the view matrix to create an illusion of moving the camera
+
   glm::mat4 model =
     glm::translate(glm::mat4(1.0f), cube_pos) *
     glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(1.0f, 0.0f, 1.0f));
+
+  // create mvp
   glm::mat4 mvp = proj * view * model;
 
   vao.Bind();
