@@ -11,15 +11,18 @@ private:
   IndexBuffer ebo;
   ShaderProgram shader;
 
-  glm::vec3 cube_pos;
   glm::vec3 cam_pos;
   glm::vec3 cam_forward;
   glm::vec3 cam_right;
   glm::vec3 cam_up;
+  glm::vec3 cam_rot;
+
+  glm::vec3 cube_pos;
 
   double cursor_x_prev = 0.0;
   double cursor_y_prev = 0.0;
-  glm::vec3 cam_rot;
+  float cursor_dx = 0.0f;
+  float cursor_dy = 0.0f;
 
 public:
   Camera(GLFWwindow *window, Renderer& renderer, ImGuiIO& io);
@@ -77,7 +80,8 @@ Camera::Camera(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
   shader.Unbind();
 
   // initialize position
-  cam_pos = glm::vec3(0.0f, 0.0f, 0.0f);
+  cam_pos = glm::vec3(0.0f);
+  cam_rot = glm::vec3(0.0f);
   cube_pos = glm::vec3(0.0f, 0.0f, -10.0f);
 
   // setup mouse input
@@ -85,6 +89,11 @@ Camera::Camera(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
   glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
   if (glfwRawMouseMotionSupported())
     glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+
+  // init cursor state
+  glfwGetCursorPos(window, &cursor_x_prev, &cursor_y_prev);
+  cursor_dx = 0.0f;
+  cursor_dy = 0.0f;
 }
 Camera::~Camera() {
   glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
@@ -105,8 +114,8 @@ void Camera::OnUpdate(const float delta_time) {
 
   // get rotation from mouse input
   float mouse_speed = 0.06f;
-  float cursor_dx = (float)floor(cursor_x_prev - cursor_x);
-  float cursor_dy = (float)floor(cursor_y_prev - cursor_y);
+  cursor_dx = (float)floor(cursor_x_prev - cursor_x);
+  cursor_dy = (float)floor(cursor_y_prev - cursor_y);
   cam_rot.x += cursor_dy * mouse_speed;
   cam_rot.y += cursor_dx * mouse_speed;
 
@@ -158,9 +167,6 @@ void Camera::OnUpdate(const float delta_time) {
 }
 
 void Camera::OnRender() {
-  static float rotation = 0.0f;
-  // rotation += 0.2f;
-
   // create projection matrix
   const float aspect_ratio = (float)renderer.width / renderer.height;
   glm::mat4 proj = glm::perspective(glm::radians(45.0f), aspect_ratio, 0.1f, 100.0f);
@@ -190,9 +196,7 @@ void Camera::OnRender() {
   //     ^^^^^^^^^^^^^^^^^^
   //     └-> inverse the view matrix to create an illusion of moving the camera
 
-  glm::mat4 model =
-    glm::translate(glm::mat4(1.0f), cube_pos) *
-    glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(1.0f, 0.0f, 1.0f));
+  glm::mat4 model = glm::translate(glm::mat4(1.0f), cube_pos);
 
   // create mvp
   glm::mat4 mvp = proj * view * model;

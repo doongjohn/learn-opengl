@@ -80,7 +80,7 @@ int main(int argc, char **argv) {
   // imgui
   IMGUI_CHECKVERSION();
   ImGui::CreateContext();
-  ImGuiIO& io = ImGui::GetIO(); (void)io;
+  ImGuiIO &io = ImGui::GetIO(); (void)io;
   //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
   //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
@@ -89,7 +89,7 @@ int main(int argc, char **argv) {
   ImGui_ImplOpenGL3_Init("#version 460 core");
 
   // create scene
-  Scene* scene = SceneManager::create_scene(window, renderer, io, 0);
+  Scene *scene = SceneManager::create_scene(window, renderer, io, 0);
 
   // main loop
   float frame_last_time = (float)glfwGetTime();
@@ -114,9 +114,9 @@ int main(int argc, char **argv) {
     // scene ui
     scene->OnImGuiRender();
 
-    // change scene
-    auto next_scene = SceneManager::draw_menu(scene, window, renderer, io);
-    SceneManager::change_scene(renderer, scene, next_scene);
+    // select scene
+    int scene_index = SceneManager::selection_buttons();
+    SceneManager::change_scene(window, renderer, io, scene, scene_index);
 
     // draw imgui
     ImGui::Render();

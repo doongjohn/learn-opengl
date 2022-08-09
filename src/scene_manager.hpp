@@ -49,23 +49,25 @@ Scene* create_scene(GLFWwindow *window, Renderer &renderer, ImGuiIO &io, int sce
   }
 }
 
-Scene* draw_menu(Scene *&scene, GLFWwindow *window, Renderer &renderer, ImGuiIO &io) {
+int selection_buttons() {
   ImGui::Begin("Scenes");
   for (int i = 0; i < scene_list.size(); ++i) {
     if (ImGui::Button(scene_list[i])) {
-      return SceneManager::create_scene(window, renderer, io, i);
+      return i;
     }
   }
   ImGui::End();
-  return nullptr;
+  return -1;
 }
 
-void change_scene(Renderer &renderer, Scene *&current_scene, Scene *&next_scene) {
-  if (next_scene) {
-    delete current_scene;
-    current_scene = next_scene;
-    renderer.SetClearColor(SceneManager::default_clear_color);
-  }
+void change_scene(GLFWwindow *window, Renderer &renderer, ImGuiIO &io, Scene *&current_scene, int next_scene_index) {
+  if (next_scene_index < 0)
+    return;
+
+  delete current_scene;
+  Scene *next_scene = SceneManager::create_scene(window, renderer, io, next_scene_index);
+  current_scene = next_scene;
+  renderer.SetClearColor(SceneManager::default_clear_color);
 }
 
 }
