@@ -65,6 +65,11 @@ int main(int argc, char **argv) {
   // enable depth testing
   glEnable(GL_DEPTH_TEST);
 
+  // cull back face
+  // glEnable(GL_CULL_FACE);
+  // glFrontFace(GL_CW);
+  // glCullFace(GL_BACK);
+
   // enable blend mode
   // https://www.youtube.com/watch?v=o1_yJ60UIxs&list=PLlrATfBNZ98foTJPJ_Ev03o2oq3-GGOS2&index=18
   glEnable(GL_BLEND);

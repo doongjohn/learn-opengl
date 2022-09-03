@@ -1,6 +1,7 @@
 #pragma once
 
 #include "scene.hpp"
+#include "glm/gtx/string_cast.hpp"
 
 namespace Scenes {
 
@@ -94,6 +95,16 @@ Camera::Camera(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
   glfwGetCursorPos(window, &cursor_x_prev, &cursor_y_prev);
   cursor_dx = 0.0f;
   cursor_dy = 0.0f;
+
+
+  // const float aspect_ratio = (float)renderer.width / renderer.height;
+  // glm::mat4 proj = glm::perspective(glm::radians(45.0f), aspect_ratio, 0.1f, 100.0f);
+  // std::cout << glm::to_string(proj) << '\n';
+  // mat4x4(
+  // (3.218951, 0.000000, 0.000000, 0.000000),
+  // (0.000000, 2.414213, 0.000000, 0.000000),
+  // (0.000000, 0.000000, -1.002002, -1.000000),
+  // (0.000000, 0.000000, -0.200200, 0.000000))
 }
 Camera::~Camera() {
   glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
@@ -183,7 +194,7 @@ void Camera::OnRender() {
   glm::mat4 view_rot = glm::mat4_cast(view_quat);
   // how to get direction vector from transform matrix
   // https://community.khronos.org/t/get-direction-from-transformation-matrix-or-quat/65502/2
-  cam_forward = -glm::vec3(view_rot[2]); // get forward vector
+  cam_forward = -glm::vec3(view_rot[2]); // get forward vector (use left hand coordinate because camera forward is left handed)
   cam_right = glm::vec3(view_rot[0]); // get right vector
   cam_up = glm::vec3(view_rot[1]); // get up vector
   // is this same as this?

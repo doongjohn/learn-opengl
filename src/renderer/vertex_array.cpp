@@ -32,7 +32,9 @@ static int32_t sizeof_gl_type(GLenum type) {
     case GL_FLOAT:
       return sizeof(float);
   }
-  return 0;
+
+  std::cout << "Error: unkown type\n";
+  exit(1);
 }
 
 void VertexArray::AttachIndexBuffer(IndexBuffer& ebo) {
