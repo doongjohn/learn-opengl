@@ -78,9 +78,18 @@ void ShaderProgram::SetUniformMat4f(const std::string& name, const glm::mat4& ma
 
 // split vertex and fragment shader
 tuple<string, string> ShaderProgram::ParseShader(const string& file_path) {
-  enum class ShaderType { None = -1, Vertex = 0, Fragment = 1 };
+  enum class ShaderType {
+    None = -1,
+    Vertex = 0,
+    Fragment = 1
+  };
 
   std::ifstream stream(file_path);
+  if (stream.fail()) {
+    std::cout << "Error: Failed to read a file \"" << file_path << "\"\n";
+    exit(1);
+  }
+
   std::stringstream ss[2];
   auto type = ShaderType::None;
 
