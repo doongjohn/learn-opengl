@@ -69,6 +69,16 @@ Cube::Cube(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
 
   // initialize model position
   cube_pos = glm::vec3(0.0f, 0.0f, -10.0f);
+
+  // calculating inverse transform
+  // https://stackoverflow.com/questions/69639800/opengl-the-inverse-of-the-transformations
+  glm::mat4 t = glm::translate(glm::mat4(1.0f), glm::vec3(1, 2, 3));
+  glm::mat4 r = glm::rotate(glm::mat4(1.0f), glm::radians(20.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+  glm::mat4 s = glm::scale(glm::mat4(1.0f), glm::vec3(3, 4, 5));
+  glm::mat4 m1 = glm::translate(glm::mat4(1.0f), glm::vec3(-1, -2, -3)) * glm::transpose(r) * glm::scale(glm::mat4(1.0f), glm::vec3(1.0f/3.0f, 1.0f/4.0f, 1.0f/5.0f));
+  glm::mat4 m2 = glm::inverse(s * r * t);
+  std::cout << glm::to_string(m1) << '\n';
+  std::cout << glm::to_string(m2) << '\n';
 }
 Cube::~Cube() { }
 

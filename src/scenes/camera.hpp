@@ -1,7 +1,6 @@
 #pragma once
 
 #include "scene.hpp"
-#include "glm/gtx/string_cast.hpp"
 
 namespace Scenes {
 
