@@ -1,7 +1,7 @@
+add_rules("mode.debug", "mode.release")
+
 set_defaultplat("mingw")
 set_defaultarchs("x86_64")
-
-add_rules("mode.debug", "mode.release")
 
 add_requires("glfw")
 
@@ -32,14 +32,13 @@ target_end()
 
 target("opengl")
   set_kind("binary")
-
+  add_packages(
+    "glfw"
+  )
   add_deps(
     "glad",
     "stb",
     "imgui"
-  )
-  add_packages(
-    "glfw"
   )
 
   set_languages("cxx20")

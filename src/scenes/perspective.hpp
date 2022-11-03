@@ -22,7 +22,7 @@ public:
   void OnImGuiRender() override;
 };
 
-Perspective::Perspective(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
+inline Perspective::Perspective(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
   : Scene(window, renderer, io)
 {
   auto positions = std::array {
@@ -54,11 +54,11 @@ Perspective::Perspective(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
   quad_pos = glm::vec3(0.0f, 0.0f, -10.0f);
   quad_color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 }
-Perspective::~Perspective() { }
+inline Perspective::~Perspective() { }
 
-void Perspective::OnUpdate(const float delta_time) { }
+inline void Perspective::OnUpdate(const float delta_time) { }
 
-void Perspective::OnRender() {
+inline void Perspective::OnRender() {
   static float rotation = 0.0f;
   rotation += 0.2f;
 
@@ -80,7 +80,7 @@ void Perspective::OnRender() {
   renderer.DrawTriangles(shader, vao, ebo);
 }
 
-void Perspective::OnImGuiRender() {
+inline void Perspective::OnImGuiRender() {
   ImGui::Begin("Hello, world!");
   ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
   ImGui::SliderFloat3("model position", &quad_pos[0], -10.0f, 10.0f);

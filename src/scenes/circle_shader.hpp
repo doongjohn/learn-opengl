@@ -22,7 +22,7 @@ public:
   void OnImGuiRender() override;
 };
 
-CircleShader::CircleShader(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
+inline CircleShader::CircleShader(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
   : Scene(window, renderer, io) {
   this->shader_file = "./res/shaders/circle.glsl";
 
@@ -60,11 +60,11 @@ CircleShader::CircleShader(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
   // initialize model position
   quad_pos = glm::vec3(0.0f, 0.0f, 0.0f);
 }
-CircleShader::~CircleShader() { }
+inline CircleShader::~CircleShader() { }
 
-void CircleShader::OnUpdate(const float delta_time) { }
+inline void CircleShader::OnUpdate(const float delta_time) { }
 
-void CircleShader::OnRender() {
+inline void CircleShader::OnRender() {
   // set mvp matrix
   glm::mat4 proj = glm::ortho(-renderer.width / 2.0f, renderer.width / 2.0f, -renderer.height / 2.0f, renderer.height / 2.0f);
   glm::mat4 model = glm::translate(glm::mat4(1.0f), quad_pos);
@@ -77,7 +77,7 @@ void CircleShader::OnRender() {
   renderer.DrawTriangles(shader, vao, ebo);
 }
 
-void CircleShader::OnImGuiRender() {
+inline void CircleShader::OnImGuiRender() {
   ImGui::Begin("Hello, world!");
   ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
   ImGui::SliderFloat3("model position", &quad_pos[0], -200.0f, 200.0f);

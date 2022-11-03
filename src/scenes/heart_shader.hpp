@@ -22,7 +22,7 @@ public:
   void OnImGuiRender() override;
 };
 
-HeartShader::HeartShader(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
+inline HeartShader::HeartShader(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
   : Scene(window, renderer, io) {
   this->shader_file = "./res/shaders/heart.glsl";
 
@@ -60,11 +60,11 @@ HeartShader::HeartShader(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
   // initialize model position
   quad_pos = glm::vec3(0.0f, 0.0f, 0.0f);
 }
-HeartShader::~HeartShader() { }
+inline HeartShader::~HeartShader() { }
 
-void HeartShader::OnUpdate(const float delta_time) { }
+inline void HeartShader::OnUpdate(const float delta_time) { }
 
-void HeartShader::OnRender() {
+inline void HeartShader::OnRender() {
   // set mvp matrix
   glm::mat4 proj = glm::ortho(-renderer.width / 2.0f, renderer.width / 2.0f, -renderer.height / 2.0f, renderer.height / 2.0f);
   glm::mat4 model = glm::translate(glm::mat4(1.0f), quad_pos);
@@ -77,7 +77,7 @@ void HeartShader::OnRender() {
   renderer.DrawTriangles(shader, vao, ebo);
 }
 
-void HeartShader::OnImGuiRender() {
+inline void HeartShader::OnImGuiRender() {
   ImGui::Begin("Hello, world!");
   ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
   ImGui::SliderFloat3("model position", &quad_pos[0], -200.0f, 200.0f);

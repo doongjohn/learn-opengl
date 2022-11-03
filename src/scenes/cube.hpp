@@ -21,7 +21,7 @@ public:
   void OnImGuiRender() override;
 };
 
-Cube::Cube(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
+inline Cube::Cube(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
   : Scene(window, renderer, io) {
   struct Vertex {
     float pos[3];
@@ -80,11 +80,11 @@ Cube::Cube(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
   std::cout << glm::to_string(m1) << '\n';
   std::cout << glm::to_string(m2) << '\n';
 }
-Cube::~Cube() { }
+inline Cube::~Cube() { }
 
-void Cube::OnUpdate(const float delta_time) { }
+inline void Cube::OnUpdate(const float delta_time) { }
 
-void Cube::OnRender() {
+inline void Cube::OnRender() {
   static float rotation = 0.0f;
   rotation += 0.2f;
 
@@ -103,7 +103,7 @@ void Cube::OnRender() {
   renderer.DrawTriangles(shader, vao, ebo);
 }
 
-void Cube::OnImGuiRender() {
+inline void Cube::OnImGuiRender() {
   ImGui::Begin("Hello, world!");
   ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
   ImGui::SliderFloat3("model position", &cube_pos[0], -10.0f, 10.0f);

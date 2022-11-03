@@ -17,15 +17,15 @@ public:
   void OnImGuiRender() override;
 };
 
-ClearColor::ClearColor(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
+inline ClearColor::ClearColor(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
   : Scene(window, renderer, io), clear_color(glm::vec3(1.0f, 1.0f, 1.0f)) { }
-ClearColor::~ClearColor() { }
+inline ClearColor::~ClearColor() { }
 
-void ClearColor::OnRender() {
+inline void ClearColor::OnRender() {
   glClearColor(clear_color.x, clear_color.y, clear_color.z, 1.0f);
 }
 
-void ClearColor::OnImGuiRender() {
+inline void ClearColor::OnImGuiRender() {
   ImGui::Begin("Hello, world!");
   ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, ImGui::GetIO().Framerate);
   ImGui::ColorEdit3("clear color", (float*)&clear_color);

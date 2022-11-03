@@ -33,7 +33,7 @@ public:
   void OnImGuiRender() override;
 };
 
-Camera::Camera(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
+inline Camera::Camera(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
   : Scene(window, renderer, io) {
   struct Vertex {
     float pos[3];
@@ -105,11 +105,11 @@ Camera::Camera(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
   // (0.000000, 0.000000, -1.002002, -1.000000),
   // (0.000000, 0.000000, -0.200200, 0.000000))
 }
-Camera::~Camera() {
+inline Camera::~Camera() {
   glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 }
 
-void Camera::OnUpdate(const float delta_time) {
+inline void Camera::OnUpdate(const float delta_time) {
   // get mouse position
   double cursor_x;
   double cursor_y;
@@ -157,11 +157,11 @@ void Camera::OnUpdate(const float delta_time) {
   int e = glfwGetKey(window, GLFW_KEY_E);
   if (q == GLFW_PRESS && e != GLFW_PRESS)
   {
-    move_dir.y = 1;
+    move_dir.y = -1; // down
   }
   if (e == GLFW_PRESS && q != GLFW_PRESS)
   {
-    move_dir.y = -1;
+    move_dir.y = 1; // up
   }
 
   // move camera

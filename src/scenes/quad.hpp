@@ -22,7 +22,7 @@ public:
   void OnImGuiRender() override;
 };
 
-Quad::Quad(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
+inline Quad::Quad(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
   : Scene(window, renderer, io) {
   auto positions = std::array {
     -100.0f, -100.0f,
@@ -53,11 +53,11 @@ Quad::Quad(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
   quad_pos = glm::vec3(0.0f, 0.0f, 0.0f);
   quad_color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 }
-Quad::~Quad() { }
+inline Quad::~Quad() { }
 
-void Quad::OnUpdate(const float delta_time) { }
+inline void Quad::OnUpdate(const float delta_time) { }
 
-void Quad::OnRender() {
+inline void Quad::OnRender() {
   static float rotation = 0.0f;
   rotation += 0.2f;
 
@@ -76,7 +76,7 @@ void Quad::OnRender() {
   renderer.DrawTriangles(shader, vao, ebo);
 }
 
-void Quad::OnImGuiRender() {
+inline void Quad::OnImGuiRender() {
   ImGui::Begin("Hello, world!");
   ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
   ImGui::SliderFloat3("model position", &quad_pos[0], -200.0f, 200.0f);

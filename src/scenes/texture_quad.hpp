@@ -23,7 +23,7 @@ public:
   void OnImGuiRender() override;
 };
 
-QuadWithTexture::QuadWithTexture(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
+inline QuadWithTexture::QuadWithTexture(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
   : Scene(window, renderer, io) {
   struct Vertex {
     float pos[2];
@@ -74,11 +74,11 @@ QuadWithTexture::QuadWithTexture(GLFWwindow *window, Renderer &renderer, ImGuiIO
   quad_pos = glm::vec3(0.0f, 0.0f, 0.0f);
   quad_color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 }
-QuadWithTexture::~QuadWithTexture() { }
+inline QuadWithTexture::~QuadWithTexture() { }
 
-void QuadWithTexture::OnUpdate(const float delta_time) { }
+inline void QuadWithTexture::OnUpdate(const float delta_time) { }
 
-void QuadWithTexture::OnRender() {
+inline void QuadWithTexture::OnRender() {
   static float rotation = 0.0f;
   rotation += 0.2f;
 
@@ -98,7 +98,7 @@ void QuadWithTexture::OnRender() {
   renderer.DrawTriangles(shader, vao, ebo);
 }
 
-void QuadWithTexture::OnImGuiRender() {
+inline void QuadWithTexture::OnImGuiRender() {
   ImGui::Begin("Hello, world!");
   ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
   ImGui::SliderFloat3("model position", &quad_pos[0], -200.0f, 200.0f);

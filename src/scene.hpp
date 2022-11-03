@@ -15,7 +15,7 @@
 
 class Scene {
 protected:
-  GLFWwindow *window;
+  GLFWwindow *const window;
   const Renderer &renderer;
   const ImGuiIO &io;
 

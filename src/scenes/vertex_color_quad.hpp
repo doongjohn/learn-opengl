@@ -21,7 +21,7 @@ public:
   void OnImGuiRender() override;
 };
 
-VertexColorQuad::VertexColorQuad(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
+inline VertexColorQuad::VertexColorQuad(GLFWwindow *window, Renderer &renderer, ImGuiIO &io)
   : Scene(window, renderer, io) {
   struct Vertex {
     float pos[2];
@@ -62,11 +62,11 @@ VertexColorQuad::VertexColorQuad(GLFWwindow *window, Renderer &renderer, ImGuiIO
   // initialize model position
   quad_pos = glm::vec3(0.0f, 0.0f, 0.0f);
 }
-VertexColorQuad::~VertexColorQuad() { }
+inline VertexColorQuad::~VertexColorQuad() { }
 
-void VertexColorQuad::OnUpdate(const float delta_time) { }
+inline void VertexColorQuad::OnUpdate(const float delta_time) { }
 
-void VertexColorQuad::OnRender() {
+inline void VertexColorQuad::OnRender() {
   // set mvp matrix
   glm::mat4 proj = glm::ortho(-renderer.width / 2.0f, renderer.width / 2.0f, -renderer.height / 2.0f, renderer.height / 2.0f);
   glm::mat4 model = glm::translate(glm::mat4(1.0f), quad_pos);
@@ -78,7 +78,7 @@ void VertexColorQuad::OnRender() {
   renderer.DrawTriangles(shader, vao, ebo);
 }
 
-void VertexColorQuad::OnImGuiRender() {
+inline void VertexColorQuad::OnImGuiRender() {
   ImGui::Begin("Hello, world!");
   ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
   ImGui::SliderFloat3("model position", &quad_pos[0], -200.0f, 200.0f);
